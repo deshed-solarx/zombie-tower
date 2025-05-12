@@ -1,0 +1,129 @@
+// This file is a simple static page that will redirect to your Replit game
+// It doesn't need any dependencies or complicated build process
+
+// Generate an HTML redirect page
+const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zombie Tower Defense</title>
+    <style>
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #333;
+            color: #fff;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #4caf50;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+        
+        .button {
+            background-color: #4caf50;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .button:hover {
+            background-color: #388e3c;
+            transform: translateY(-2px);
+        }
+        
+        .zombie {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="zombie">🧟</div>
+        <h1>Zombie Tower Defense</h1>
+        <p>Click below to play the game on Replit where it's fully functional with all features!</p>
+        <a href="https://zombie-tower3.replit.app" class="button">Play Now</a>
+    </div>
+    
+    <script>
+        // Add this to ensure the content loads fully
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Page fully loaded');
+            
+            // Set a countdown to redirect automatically after 5 seconds
+            const redirectUrl = 'https://zombie-tower3.replit.app';
+            const redirectTime = 5; // seconds
+            let timeLeft = redirectTime;
+            
+            const countdownElement = document.createElement('div');
+            countdownElement.style.marginTop = '20px';
+            countdownElement.style.fontSize = '0.9rem';
+            countdownElement.style.opacity = '0.7';
+            document.querySelector('.container').appendChild(countdownElement);
+            
+            const updateCountdown = function() {
+                if(timeLeft > 0) {
+                    countdownElement.textContent = \`Redirecting automatically in \${timeLeft} seconds...\`;
+                    timeLeft--;
+                    setTimeout(updateCountdown, 1000);
+                } else {
+                    window.location.href = redirectUrl;
+                }
+            };
+            
+            // Start the countdown
+            updateCountdown();
+        });
+    </script>
+</body>
+</html>`;
+
+// Export functions that Vercel can use
+module.exports = (req, res) => {
+  res.setHeader('Content-Type', 'text/html');
+  res.status(200).send(html);
+};
