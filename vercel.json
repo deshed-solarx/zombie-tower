@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "cp vercel-package.json package.json && npm run vercel-build",
+  "buildCommand": "node --experimental-modules vercel-simple-build.js",
   "installCommand": "npm install",
   "outputDirectory": "dist/public",
   "functions": {
