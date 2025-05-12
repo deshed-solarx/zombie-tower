@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "node --experimental-modules vercel-simple-build.js",
+  "buildCommand": "node --no-warnings --experimental-modules vercel-simple-build.js",
   "installCommand": "npm install",
   "outputDirectory": "dist/public",
   "functions": {

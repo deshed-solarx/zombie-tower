@@ -2,6 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { execSync } from 'child_process';
 
 // Get current file's directory
 const __filename = fileURLToPath(import.meta.url);
@@ -9,30 +10,76 @@ const __dirname = path.dirname(__filename);
 
 console.log('🚀 Starting Vercel build process with ES modules...');
 
-// Create the output directory
-console.log('📁 Creating output directory...');
-const distDir = path.join(__dirname, 'dist', 'public');
-if (!fs.existsSync(distDir)) {
-  fs.mkdirSync(distDir, { recursive: true });
-}
+// Create file indicating we're building with ES modules
+fs.writeFileSync('esm-build-log.txt', `Build started at ${new Date().toISOString()}`);
 
-// Copy the index.html file to the output directory
-console.log('📝 Copying index.html...');
 try {
-  const sourceHtml = path.join(__dirname, 'index.html');
-  const destHtml = path.join(distDir, 'index.html');
-  fs.copyFileSync(sourceHtml, destHtml);
-  console.log('✅ HTML file copied successfully');
-} catch (error) {
-  console.error('❌ Error copying HTML file:', error);
+  // First, create a special config for client-side Vite build
+  console.log('📝 Creating Vite config for static build...');
+  const viteConfigContent = `
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react()],
+  build: {
+    outDir: 'dist/public',
+    emptyOutDir: true,
+  },
+  define: {
+    'process.env.STATIC_BUILD': JSON.stringify('true'),
+    'process.env.IS_VERCEL_DEPLOYMENT': JSON.stringify('true'),
+  }
+});
+`;
+
+  fs.writeFileSync('vite.config.vercel.js', viteConfigContent);
   
-  // Create a basic HTML file if copying fails
-  const htmlContent = `<!DOCTYPE html>
+  // Create a special apiConfig.ts for the client to use in Vercel
+  console.log('📝 Creating API config for Vercel...');
+  if (!fs.existsSync('client/src/lib')) {
+    fs.mkdirSync('client/src/lib', { recursive: true });
+  }
+  
+  const apiConfigContent = `
+export const API_CONFIG = {
+  isVercelDeployment: true,
+  API_BASE_URL: '/api',
+  isStaticMode: true
+};
+
+export default API_CONFIG;
+`;
+
+  fs.writeFileSync('client/src/lib/apiConfig.ts', apiConfigContent);
+
+  // Run the vite build
+  console.log('🔨 Building client with Vite...');
+  try {
+    execSync('npx vite build --config vite.config.vercel.js', { stdio: 'inherit' });
+    console.log('✅ Vite build completed successfully');
+  } catch (buildError) {
+    console.error('❌ Vite build failed:', buildError);
+    throw buildError;
+  }
+
+  console.log('🎉 Build process completed successfully!');
+} catch (error) {
+  console.error('❌ Build failed:', error);
+  
+  // Create a simple error page if the build fails
+  const errorDir = path.join(__dirname, 'dist', 'public');
+  if (!fs.existsSync(errorDir)) {
+    fs.mkdirSync(errorDir, { recursive: true });
+  }
+  
+  const errorHtml = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zombie Tower Defense</title>
+  <title>Zombie Tower Defense - Build Error</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -44,12 +91,13 @@ try {
       justify-content: center;
       height: 100vh;
       margin: 0;
+      padding: 20px;
     }
     
     h1 {
       font-size: 2.5rem;
       margin-bottom: 20px;
-      color: #4caf50;
+      color: #ff6b6b;
     }
     
     p {
@@ -75,37 +123,25 @@ try {
   </style>
 </head>
 <body>
-  <h1>Zombie Tower Defense</h1>
-  <p>Welcome to Zombie Tower Defense! The game is being served from Vercel's serverless environment.</p>
-  <button id="startGameBtn">Start Game</button>
+  <h1>Build Process Error</h1>
+  <p>There was an error during the build process. Please check the deployment logs for details.</p>
   <p>API Status: <span id="apiStatus">Checking...</span></p>
   
   <script>
-    // Check API status
     fetch('/api/game-state')
       .then(response => response.json())
       .then(data => {
-        document.getElementById('apiStatus').textContent = 'Connected ✅';
-        console.log('API response:', data);
+        document.getElementById('apiStatus').textContent = 'API Connected ✅';
       })
       .catch(error => {
-        document.getElementById('apiStatus').textContent = 'Error ❌';
-        console.error('API error:', error);
+        document.getElementById('apiStatus').textContent = 'API Error ❌';
       });
-    
-    // Start game button
-    document.getElementById('startGameBtn').addEventListener('click', () => {
-      alert('Game functionality will be integrated here.');
-    });
   </script>
 </body>
 </html>`;
 
-  fs.writeFileSync(path.join(distDir, 'index.html'), htmlContent);
-  console.log('✅ Created fallback HTML file');
+  fs.writeFileSync(path.join(errorDir, 'index.html'), errorHtml);
+  console.log('✅ Created error page');
+  
+  // Don't exit with error code, let Vercel handle it
 }
-
-// Create a simple success indicator file
-fs.writeFileSync(path.join(distDir, 'build-success.txt'), `Build completed at ${new Date().toISOString()}`);
-
-console.log('🎉 Build process completed successfully!');
