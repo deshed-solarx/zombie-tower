@@ -11,16 +11,14 @@ cp client/vercel.html dist/public/vercel.html 2>/dev/null || :
 # Move to the client directory before running the build
 cd client
 
-# Create a temporary postcss.config.js that uses the Vercel config
-cp postcss.config.vercel.js postcss.config.js
+# Create temporary config files that use CommonJS format for the Vercel build
+cp postcss.config.vercel.cjs postcss.config.cjs
+ 
+# Build using the Vercel-specific configs
+TAILWIND_CONFIG_PATH=./tailwind.config.vercel.cjs POSTCSS_CONFIG_PATH=./postcss.config.cjs npx vite build --config vite.config.vercel.ts
 
-# Build using the Vercel-specific config
-TAILWIND_CONFIG_PATH=./tailwind.config.vercel.js npx vite build --config vite.config.vercel.ts
-
-# Restore original postcss config if needed
-if [ -f "../postcss.config.js" ]; then
-  cp ../postcss.config.js postcss.config.js
-fi
+# Clean up temporary files
+rm -f postcss.config.cjs 2>/dev/null
 
 # Ensure the 404.html file exists in the output directory
 if [ ! -f "../dist/public/404.html" ]; then

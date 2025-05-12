@@ -2,7 +2,6 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import glsl from "vite-plugin-glsl";
-import fs from 'fs';
 
 // Configuration for Vercel static deployment
 export default defineConfig({
@@ -20,16 +19,6 @@ export default defineConfig({
     // Define production environment variables
     'process.env.NODE_ENV': JSON.stringify('production'),
     'import.meta.env.VITE_STATIC_DEPLOYMENT': JSON.stringify('true'),
-  },
-  css: {
-    postcss: {
-      plugins: [
-        require('tailwindcss')({
-          config: path.resolve(__dirname, 'tailwind.config.vercel.cjs'),
-        }),
-        require('autoprefixer'),
-      ],
-    },
   },
   build: {
     outDir: "../dist/public",
