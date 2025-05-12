@@ -1,0 +1,9 @@
+{
+  "name": "zombie-tower-defense",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "vercel-build": "mkdir -p dist/public && cp -r index.html dist/public/"
+  }
+}
