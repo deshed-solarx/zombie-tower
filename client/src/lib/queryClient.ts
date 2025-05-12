@@ -1,4 +1,5 @@
 import { QueryClient, QueryFunction } from "@tanstack/react-query";
+import { API_BASE_URL, isBackendAvailable } from "./apiConfig";
 
 async function throwIfResNotOk(res: Response) {
   if (!res.ok) {
@@ -12,7 +13,22 @@ export async function apiRequest(
   url: string,
   data?: unknown | undefined,
 ): Promise<Response> {
-  const res = await fetch(url, {
+  // If this is a relative URL and not starting with /api, prepend the API base URL
+  const fullUrl = url.startsWith('/api') || url.startsWith('http') 
+    ? url 
+    : `${API_BASE_URL}${url.startsWith('/') ? url : `/${url}`}`;
+  
+  // For static deployments without a backend, we can skip actual API calls
+  if (!isBackendAvailable && import.meta.env.PROD) {
+    console.log(`Static deployment - skipping API call to: ${fullUrl}`);
+    // Return a mock response
+    return new Response(JSON.stringify({}), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
+  const res = await fetch(fullUrl, {
     method,
     headers: data ? { "Content-Type": "application/json" } : {},
     body: data ? JSON.stringify(data) : undefined,
@@ -29,7 +45,19 @@ export const getQueryFn: <T>(options: {
 }) => QueryFunction<T> =
   ({ on401: unauthorizedBehavior }) =>
   async ({ queryKey }) => {
-    const res = await fetch(queryKey[0] as string, {
+    // Handle static deployments without a backend
+    if (!isBackendAvailable && import.meta.env.PROD) {
+      console.log(`Static deployment - skipping query for: ${queryKey[0]}`);
+      return null; // Return null for static deployments
+    }
+    
+    const url = queryKey[0] as string;
+    // If this is a relative URL and not starting with /api, prepend the API base URL
+    const fullUrl = url.startsWith('/api') || url.startsWith('http') 
+      ? url 
+      : `${API_BASE_URL}${url.startsWith('/') ? url : `/${url}`}`;
+    
+    const res = await fetch(fullUrl, {
       credentials: "include",
     });
 

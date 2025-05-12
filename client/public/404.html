@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zombie Tower Defense</title>
+  <meta name="description" content="2D tower defense game against zombies" />
+  <script>
+    // Single Page App handling for Vercel deployments
+    // This redirects all requests back to index.html
+    const segment = window.location.pathname;
+    window.location.href = '/#' + segment;
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #0f0f0f;
+      color: #ffffff;
+    }
+    .container {
+      text-align: center;
+      padding: 2rem;
+      max-width: 500px;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    p {
+      margin-bottom: 2rem;
+    }
+    a {
+      color: #4f9eff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Redirecting to Game...</h1>
+    <p>If you're not redirected automatically, <a href="/">click here to return to the game</a>.</p>
+  </div>
+</body>
+</html>
