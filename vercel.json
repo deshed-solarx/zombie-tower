@@ -1,16 +1,25 @@
 {
   "version": 2,
-  "buildCommand": "node vercel-build.js",
+  "buildCommand": "node --experimental-modules vercel-build.mjs",
   "installCommand": "npm install",
   "outputDirectory": "dist/public",
   "functions": {
-    "api/index.js": {
+    "api/*.js": {
       "memory": 1024,
       "maxDuration": 10
     }
   },
   "routes": [
-    { "src": "/api/(.*)", "dest": "/api/index.js" },
-    { "src": "/(.*)", "dest": "/api/index.js" }
+    { "src": "/assets/(.*)", "dest": "/assets/$1" },
+    { "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot))", "dest": "/$1" },
+    { "src": "/(.*)", "dest": "/api/server.js" }
+  ],
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    }
   ]
 }
