@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "cp vercel-package.json package.json && node vercel-build.cjs",
+  "buildCommand": "cp vercel-package.json package.json && npm run vercel-build",
   "installCommand": "npm install",
   "outputDirectory": "dist/public",
   "functions": {

@@ -2,8 +2,8 @@
   "name": "zombie-tower-defense",
   "version": "1.0.0",
   "private": true,
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
-    "build": "node vercel-build.cjs"
+    "vercel-build": "mkdir -p dist/public && cp -r index.html dist/public/"
   }
 }

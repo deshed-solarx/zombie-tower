@@ -1,5 +1,5 @@
 // Simple game state API for Vercel
-module.exports = (req, res) => {
+export default function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -19,4 +19,4 @@ module.exports = (req, res) => {
     version: '1.0.0',
     serverTime: new Date().toISOString()
   });
-};
+}
