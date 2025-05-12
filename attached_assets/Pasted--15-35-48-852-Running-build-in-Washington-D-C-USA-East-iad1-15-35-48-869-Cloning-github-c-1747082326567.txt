@@ -1,0 +1,41 @@
+[15:35:48.852] Running build in Washington, D.C., USA (East) – iad1
+[15:35:48.869] Cloning github.com/V01dNullified/Tower3 (Branch: main, Commit: dd5ba6b)
+[15:35:48.877] Skipping build cache, deployment was triggered without cache.
+[15:35:49.218] Cloning completed: 349.000ms
+[15:35:49.568] Running "vercel build"
+[15:35:49.968] Vercel CLI 41.7.3
+[15:35:50.541] Running "install" command: npm install...
+[15:35:56.471] npm warn deprecated @esbuild-kit/core-utils@3.3.2: Merged into tsx: https://tsx.is
+[15:35:56.497] npm warn deprecated @esbuild-kit/esm-loader@2.6.5: Merged into tsx: https://tsx.is
+[15:35:57.054] npm warn deprecated react-use-gesture@9.1.3: This package is no longer maintained. Please use @use-gesture/react instead
+[15:35:58.228] npm warn deprecated three-mesh-bvh@0.7.8: Deprecated due to three.js version incompatibility. Please use v0.8.0, instead.
+[15:36:05.953] 
+[15:36:05.954] added 606 packages, and audited 607 packages in 15s
+[15:36:05.954] 
+[15:36:05.955] 82 packages are looking for funding
+[15:36:05.955]   run npm fund for details
+[15:36:05.992] 
+[15:36:05.992] 11 moderate severity vulnerabilities
+[15:36:05.993] 
+[15:36:05.993] To address issues that do not require attention, run:
+[15:36:05.993]   npm audit fix
+[15:36:05.993] 
+[15:36:05.994] To address all issues (including breaking changes), run:
+[15:36:05.994]   npm audit fix --force
+[15:36:05.994] 
+[15:36:05.994] Run npm audit for details.
+[15:36:06.440] file:///vercel/path0/vercel-simple-build.js:1
+[15:36:06.441] const fs = require('fs');
+[15:36:06.441]            ^
+[15:36:06.441] 
+[15:36:06.441] ReferenceError: require is not defined in ES module scope, you can use import instead
+[15:36:06.441] This file is being treated as an ES module because it has a '.js' file extension and '/vercel/path0/package.json' contains "type": "module". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+[15:36:06.442]     at file:///vercel/path0/vercel-simple-build.js:1:12
+[15:36:06.442]     at ModuleJob.run (node:internal/modules/esm/module_job:271:25)
+[15:36:06.442]     at async onImport.tracePromise._proto_ (node:internal/modules/esm/loader:578:26)
+[15:36:06.442]     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:116:5)
+[15:36:06.442] 
+[15:36:06.442] Node.js v22.14.0
+[15:36:06.447] Error: Command "node vercel-simple-build.js" exited with 1
+[15:36:06.776] 
+[15:36:10.115] Exiting build container
