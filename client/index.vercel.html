@@ -6,77 +6,68 @@
   <title>Zombie Tower Defense</title>
   <meta name="description" content="2D tower defense game against zombies" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
-  <!-- Open Graph / Social Media Meta Tags -->
-  <meta property="og:title" content="Zombie Tower Defense" />
-  <meta property="og:description" content="Defend your tower against waves of zombies in this action-packed tower defense game!" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://zombie-tower-defense.vercel.app" />
-  <!-- Twitter Card data -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Zombie Tower Defense" />
-  <meta name="twitter:description" content="Defend your tower against waves of zombies in this action-packed tower defense game!" />
-  <!-- Add favicon -->
-  <link rel="icon" type="image/png" href="/favicon.png" />
-  <!-- Preload game assets -->
-  <link rel="preload" as="fetch" href="/api/game-state" />
-  <!-- Add custom meta tag to indicate Vercel deployment -->
-  <meta name="deployment-platform" content="vercel" />
+  <style>
+    /* Inline CSS variables to prevent Tailwind issues */
+    :root {
+      --background: 210 33% 10%;
+      --foreground: 210 40% 98%;
+      --card: 210 33% 13%;
+      --card-foreground: 210 40% 98%;
+      --popover: 210 33% 13%;
+      --popover-foreground: 210 40% 98%;
+      --primary: 25 95% 53%;
+      --primary-foreground: 210 40% 98%;
+      --secondary: 210 33% 13%;
+      --secondary-foreground: 210 40% 98%;
+      --muted: 210 33% 20%;
+      --muted-foreground: 210 20% 60%;
+      --accent: 210 33% 20%;
+      --accent-foreground: 210 40% 98%;
+      --destructive: 0 62% 50%;
+      --destructive-foreground: 210 40% 98%;
+      --border: 210 33% 20%;
+      --input: 210 33% 20%;
+      --ring: 25 95% 53%;
+      --radius: 0.5rem;
+    
+      /* Chart Colors */
+      --chart-1: 25 95% 53%;
+      --chart-2: 262 83% 58%;
+      --chart-3: 110 73% 49%;
+      --chart-4: 199 89% 48%;
+      --chart-5: 0 72% 51%;
+    
+      /* Sidebar Colors */
+      --sidebar-background: 210 33% 13%;
+      --sidebar-foreground: 210 40% 98%;
+      --sidebar-primary: 25 95% 53%;
+      --sidebar-primary-foreground: 210 40% 98%;
+      --sidebar-accent: 210 33% 20%;
+      --sidebar-accent-foreground: 210 40% 98%;
+      --sidebar-border: 210 33% 20%;
+      --sidebar-ring: 25 95% 53%;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      background-color: hsl(var(--background));
+      color: hsl(var(--foreground));
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    #root {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+    }
+  </style>
 </head>
 <body>
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
-  <!-- Loading spinner shown before the game loads -->
-  <style>
-    #loading-spinner {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: #1a1a1a;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      transition: opacity 0.5s;
-    }
-    #loading-spinner.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-    .spinner {
-      width: 50px;
-      height: 50px;
-      border: 5px solid rgba(255, 255, 255, 0.3);
-      border-radius: 50%;
-      border-top-color: #4caf50;
-      animation: spin 1s ease-in-out infinite;
-    }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-    .loading-text {
-      margin-top: 20px;
-      font-family: 'Inter', sans-serif;
-      color: #fff;
-      font-size: 18px;
-    }
-  </style>
-  <div id="loading-spinner">
-    <div class="spinner"></div>
-    <div class="loading-text">Loading Zombie Tower Defense...</div>
-  </div>
-  <script>
-    // Hide the loading spinner when the app is loaded
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        document.getElementById('loading-spinner').classList.add('hidden');
-      }, 500);
-    });
-    
-    // Analytics
-    console.log('Zombie Tower Defense - Vercel Version');
-  </script>
 </body>
 </html>
