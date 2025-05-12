@@ -1,7 +1,5 @@
 {
-  "version": 2,
-  "buildCommand": "bash vercel-build.sh",
-  "outputDirectory": "dist/public",
-  "cleanUrls": true,
-  "trailingSlash": false
+  "redirects": [
+    { "source": "/(.*)", "destination": "https://zombie-tower3.replit.app" }
+  ]
 }
