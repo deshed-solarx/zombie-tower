@@ -39,8 +39,18 @@ const buildApp = async () => {
       fs.mkdirSync(distDir, { recursive: true });
     }
     
-    // Run Vite build for client files
-    await runCommand('npx vite build client --outDir ../dist/public');
+    // Use the Vercel-specific HTML file
+    console.log('📄 Using Vercel-specific index.html...');
+    if (fs.existsSync(path.join(__dirname, 'client', 'index.vercel.html'))) {
+      fs.copyFileSync(
+        path.join(__dirname, 'client', 'index.vercel.html'),
+        path.join(__dirname, 'client', 'index.html')
+      );
+      console.log('✅ Using Vercel-optimized HTML template');
+    }
+    
+    // Run Vite build for client files using client-specific config
+    await runCommand('cd client && npx vite build --config vite.config.ts');
     console.log('✅ Vite build completed');
     
     // Make sure the HTML file has the correct paths
@@ -55,6 +65,12 @@ const buildApp = async () => {
       htmlContent = htmlContent.replace(/src="\//g, 'src="./');
       htmlContent = htmlContent.replace(/href="\//g, 'href="./');
       
+      // Add Vercel deployment flag
+      htmlContent = htmlContent.replace(
+        '</head>',
+        '<script>window.VERCEL_DEPLOYMENT = true;</script></head>'
+      );
+      
       // Write the modified HTML back
       fs.writeFileSync(indexPath, htmlContent);
       console.log('✅ HTML paths updated');
@@ -67,6 +83,7 @@ const buildApp = async () => {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Zombie Tower Defense</title>
+  <script>window.VERCEL_DEPLOYMENT = true;</script>
   <link rel="stylesheet" href="./assets/index.css">
 </head>
 <body>
@@ -77,6 +94,26 @@ const buildApp = async () => {
       
       fs.writeFileSync(indexPath, fallbackHTML);
       console.log('✅ Created fallback HTML file');
+    }
+    
+    // Create favicon if it doesn't exist
+    const faviconPath = path.join(distDir, 'favicon.png');
+    if (!fs.existsSync(faviconPath)) {
+      // Use a basic favicon or copy an existing one
+      try {
+        if (fs.existsSync(path.join(__dirname, 'client', 'public', 'favicon.png'))) {
+          fs.copyFileSync(
+            path.join(__dirname, 'client', 'public', 'favicon.png'),
+            faviconPath
+          );
+        } else {
+          // We'll use the generated icon
+          fs.copyFileSync(path.join(__dirname, 'generated-icon.png'), faviconPath);
+        }
+        console.log('✅ Added favicon');
+      } catch (error) {
+        console.error('⚠️ Could not add favicon:', error.message);
+      }
     }
     
     // Create a success marker file
