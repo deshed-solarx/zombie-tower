@@ -1,6 +1,7 @@
 {
   "version": 2,
-  "buildCommand": "node vercel-simple-build.js",
+  "buildCommand": "bash vercel-build.sh",
   "outputDirectory": "dist/public",
-  "cleanUrls": true
+  "cleanUrls": true,
+  "trailingSlash": false
 }
