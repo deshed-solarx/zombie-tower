@@ -1,9 +1,10 @@
 #!/bin/bash
 # Script to build only the client-side application for Vercel deployment
 
-# Run the Vite build to create the static files
-npm run build
+# Move to the client directory before running the build
+cd client
 
-# Don't run the server build process for Vercel static deployments
-# This is what was causing the server code to be shown instead of the client app
-echo "Static build completed successfully!"
+# Build using the Vercel-specific config
+npx vite build --config vite.config.vercel.ts
+
+echo "Client-side build completed successfully for Vercel deployment!"
