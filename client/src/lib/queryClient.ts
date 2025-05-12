@@ -1,5 +1,5 @@
 import { QueryClient, QueryFunction } from "@tanstack/react-query";
-import { API_BASE_URL, isBackendAvailable } from "./apiConfig";
+import { API_BASE_URL, isStaticMode, gameStorage } from "./apiConfig";
 
 async function throwIfResNotOk(res: Response) {
   if (!res.ok) {
@@ -8,6 +8,7 @@ async function throwIfResNotOk(res: Response) {
   }
 }
 
+// Helper to handle common API requests
 export async function apiRequest(
   method: string,
   url: string,
@@ -18,57 +19,91 @@ export async function apiRequest(
     ? url 
     : `${API_BASE_URL}${url.startsWith('/') ? url : `/${url}`}`;
   
-  // For static deployments without a backend, we can skip actual API calls
-  if (!isBackendAvailable && import.meta.env.PROD) {
-    console.log(`Static deployment - skipping API call to: ${fullUrl}`);
-    // Return a mock response
-    return new Response(JSON.stringify({}), {
+  // Special handling for high scores in static mode
+  if (isStaticMode && url.includes('high-scores')) {
+    let responseData = {};
+    
+    if (method === 'GET') {
+      responseData = { scores: gameStorage.getHighScores() };
+    } else if (method === 'POST' && data) {
+      const { score, playerName } = data as any;
+      const scores = gameStorage.saveScore(score, playerName);
+      responseData = { scores };
+    }
+    
+    // Return a mock response with local storage data
+    return new Response(JSON.stringify(responseData), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
     });
   }
+  
+  try {
+    const res = await fetch(fullUrl, {
+      method,
+      headers: data ? { "Content-Type": "application/json" } : {},
+      body: data ? JSON.stringify(data) : undefined,
+      credentials: "include",
+    });
 
-  const res = await fetch(fullUrl, {
-    method,
-    headers: data ? { "Content-Type": "application/json" } : {},
-    body: data ? JSON.stringify(data) : undefined,
-    credentials: "include",
-  });
-
-  await throwIfResNotOk(res);
-  return res;
+    await throwIfResNotOk(res);
+    return res;
+  } catch (error) {
+    console.error(`API request failed: ${fullUrl}`, error);
+    
+    // For static mode, return empty successful response to avoid breaking the app
+    if (isStaticMode) {
+      return new Response(JSON.stringify({}), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+    throw error;
+  }
 }
 
+// Query function for React Query
 type UnauthorizedBehavior = "returnNull" | "throw";
 export const getQueryFn: <T>(options: {
   on401: UnauthorizedBehavior;
 }) => QueryFunction<T> =
   ({ on401: unauthorizedBehavior }) =>
   async ({ queryKey }) => {
-    // Handle static deployments without a backend
-    if (!isBackendAvailable && import.meta.env.PROD) {
-      console.log(`Static deployment - skipping query for: ${queryKey[0]}`);
-      return null; // Return null for static deployments
-    }
-    
     const url = queryKey[0] as string;
-    // If this is a relative URL and not starting with /api, prepend the API base URL
-    const fullUrl = url.startsWith('/api') || url.startsWith('http') 
-      ? url 
-      : `${API_BASE_URL}${url.startsWith('/') ? url : `/${url}`}`;
     
-    const res = await fetch(fullUrl, {
-      credentials: "include",
-    });
-
-    if (unauthorizedBehavior === "returnNull" && res.status === 401) {
-      return null;
+    // Special handling for high scores in static mode
+    if (isStaticMode && url.includes('high-scores')) {
+      return { scores: gameStorage.getHighScores() };
     }
+    
+    try {
+      // If this is a relative URL and not starting with /api, prepend the API base URL
+      const fullUrl = url.startsWith('/api') || url.startsWith('http') 
+        ? url 
+        : `${API_BASE_URL}${url.startsWith('/') ? url : `/${url}`}`;
+      
+      const res = await fetch(fullUrl, {
+        credentials: "include",
+      });
 
-    await throwIfResNotOk(res);
-    return await res.json();
+      if (unauthorizedBehavior === "returnNull" && res.status === 401) {
+        return null;
+      }
+
+      await throwIfResNotOk(res);
+      return await res.json();
+    } catch (error) {
+      console.error(`Query failed: ${url}`, error);
+      
+      // For static mode, return null to avoid breaking the app
+      if (isStaticMode) {
+        return null;
+      }
+      throw error;
+    }
   };
 
+// Create the query client
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
