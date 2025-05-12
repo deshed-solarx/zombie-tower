@@ -1,0 +1,103 @@
+[18:54:55] [Particles] Creating 3 particles 
+[18:54:55] [Zombie] Zombie killed 
+Object {zombieX: 952.1092869705394, zombieY: 338.6511147775629, zombiesKilled: 8, waveThreshold: 10, wave: 1}
+[18:54:55] [Zombie] Score updated 
+Object {newScore: 90, zombiesKilled: 9, scoreGain: 10}
+[18:54:55] [Zombie] Creating death particles 
+Object {x: 952.1092869705394, y: 338.6511147775629, count: 8}
+[18:54:55] [Particles] Creating particles at (952.1092869705394, 338.6511147775629) 
+Object {count: 8, color: "#55aa55"}
+[18:54:55] [Particles] Creating 5 particles 
+[18:54:56] [GameLoop] Stats 
+Object {fps: 60, zombies: 2, bullets: 0, particles: 0, wave: 1, …}
+[18:54:57] [GameLoop] Stats 
+Object {fps: 60, zombies: 2, bullets: 3, particles: 0, wave: 1, …}
+[18:54:57] [Particles] Creating particles at (100.40719829618584, 183.33361275113944) 
+Object {count: 3, color: "#ffcc00"}
+[18:54:57] [Particles] Creating 3 particles 
+[18:54:58] [GameLoop] Stats 
+Object {fps: 61, zombies: 3, bullets: 2, particles: 0, wave: 1, …}
+[18:54:58] [Particles] Creating particles at (165.20421395513367, 191.51996443347366) 
+Object {count: 3, color: "#ffcc00"}
+[18:54:58] [Particles] Creating 3 particles 
+[18:54:59] [Particles] Creating particles at (174.04307772670467, 215.38185696883156) 
+Object {count: 3, color: "#ffcc00"}
+[18:54:59] [Particles] Creating 3 particles 
+[18:54:59] [Zombie] Zombie killed 
+Object {zombieX: 162.52859564903122, zombieY: 194.8735988477766, zombiesKilled: 9, waveThreshold: 10, wave: 1}
+[18:54:59] [Zombie] Score updated 
+Object {newScore: 100, zombiesKilled: 10, scoreGain: 10}
+[18:54:59] [Zombie] Creating death particles 
+Object {x: 162.52859564903122, y: 194.8735988477766, count: 8}
+[18:54:59] [Particles] Creating particles at (162.52859564903122, 194.8735988477766) 
+Object {count: 8, color: "#55aa55"}
+[18:54:59] [Particles] Creating 5 particles 
+[18:54:59] [Zombie] Wave completion triggered 
+Object {zombiesKilled: 10, threshold: 10, currentWave: 1}
+[18:54:59] [Zombie] Checking wave transition conditions in timeout 
+[18:54:59] [Zombie] Starting next wave from zombie death handler 
+[18:54:59] [Wave] Starting next wave - current wave: 1, zombies killed: 10, threshold: 10 
+[18:54:59] [Wave] Game state before wave change 
+Object {running: true, score: 100, wave: 1, zombiesKilled: 10, timeSinceLastSpawn: 999, …}
+[18:54:59] [Wave] Wave transitioned: 1 -> 2, new threshold: 20 
+[18:54:59] [Wave] Cleared 2 zombies for new wave 
+[18:54:59] [Game] Pausing game 
+[18:54:59] [Game] Animation frame cancelled 
+[18:54:59] [Wave] Showing upgrade screen 
+[18:54:59] [Wave] Game state after wave change 
+Object {wave: 2, zombieCount: 0, running: false, score: 100, waveCompleted: true, …}
+[18:54:59] [Wave] Triggering upgrade screen after delay 
+[18:54:59] [Game] Pausing game 
+Applied upgrade Auto-Aimer to level 1
+[18:54:59] [Game] Pausing game 
+Success sound skipped (muted)
+[18:54:59] [Game] Starting game 
+[18:54:59] [Game] Game state reset 
+Object {running: true, score: 0, wave: 1, zombiesKilled: 0, timeSinceLastSpawn: -49167.861999997025, …}
+[18:54:59] [GameLoop] Stats 
+Object {fps: 0, zombies: 0, bullets: 0, particles: 0, wave: 1, …}
+[18:54:59] [Game] Game loop started 
+[18:54:59] [GameLoop] Stats 
+Object {fps: 0, zombies: 0, bullets: 0, particles: 0, wave: 1, …}
+[18:54:59] [Game] Resuming after upgrade 
+[18:54:59] [Game] Game already running, ignoring resume request 
+[18:55:00] [GameLoop] Stats 
+Object {fps: 60, zombies: 0, bullets: 0, particles: 0, wave: 1, …}
+[18:55:01] [GameLoop] Stats 
+Object {fps: 60, zombies: 0, bullets: 0, particles: 0, wave: 1, …}
+[18:55:02] [GameLoop] Stats 
+Object {fps: 60, zombies: 0, bullets: 0, particles: 0, wave: 1, …}
+[18:55:03] [GameLoop] Stats 
+Object {fps: 60, zombies: 0, bullets: 0, particles: 0, wave: 1, …}
+[18:55:04] [GameLoop] Stats 
+Object {fps: 60, zombies: 0, bullets: 0, particles: 0, wave: 1, …}
+[18:55:05] [GameLoop] Stats 
+Object {fps: 30, zombies: 0, bullets: 0, particles: 0, wave: 1, …}
+[18:55:06] [GameLoop] Stats 
+Object {fps: 30, zombies: 0, bullets: 0, particles: 0, wave: 1, …}
+[18:55:07] [GameLoop] Stats 
+Object {fps: 60, zombies: 0, bullets: 0, particles: 0, wave: 1, …}
+[18:55:08] [GameLoop] Stats 
+Object {fps: 60, zombies: 0, bullets: 0, particles: 0, wave: 1, …}
+[18:55:09] [GameLoop] Stats 
+Object {fps: 60, zombies: 0, bullets: 0, particles: 0, wave: 1, …}
+[18:55:10] [GameLoop] Stats 
+Object {fps: 60, zombies: 0, bullets: 0, particles: 0, wave: 1, …}
+[18:55:11] [GameLoop] Stats 
+Object {fps: 60, zombies: 0, bullets: 0, particles: 0, wave: 1, …}
+[18:55:12] [GameLoop] Stats 
+Object {fps: 60, zombies: 0, bullets: 0, particles: 0, wave: 1, …}
+[18:55:13] [GameLoop] Stats 
+Object {fps: 60, zombies: 0, bullets: 0, particles: 0, wave: 1, …}
+[18:55:14] [GameLoop] Stats 
+Object {fps: 60, zombies: 0, bullets: 0, particles: 0, wave: 1, …}
+[18:55:15] [GameLoop] Stats 
+Object {fps: 60, zombies: 0, bullets: 0, particles: 0, wave: 1, …}
+[18:55:16] [GameLoop] Stats 
+Object {fps: 60, zombies: 0, bullets: 0, particles: 0, wave: 1, …}
+[18:55:17] [GameLoop] Stats 
+Object {fps: 60, zombies: 0, bullets: 0, particles: 0, wave: 1, …}
+[18:55:18] [GameLoop] Stats 
+Object {fps: 60, zombies: 0, bullets: 0, particles: 0, wave: 1, …}
+[18:55:19] [GameLoop] Stats 
+Object {fps: 60, zombies: 0, bullets: 0, particles: 0, wave: 1, …}

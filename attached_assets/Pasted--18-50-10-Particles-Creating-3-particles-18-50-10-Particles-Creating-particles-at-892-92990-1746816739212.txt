@@ -1,0 +1,170 @@
+[18:50:10] [Particles] Creating 3 particles 
+[18:50:10] [Particles] Creating particles at (892.9299012028966, 203.9393420038235) 
+Object {count: 3, color: "#ffcc00"}
+[18:50:10] [Particles] Creating 3 particles 
+[18:50:10] [Zombie] Zombie killed 
+Object {zombieX: 902.2624254444933, zombieY: 192.8175560995578, zombiesKilled: 3, waveThreshold: 10, wave: 1}
+[18:50:10] [Zombie] Score updated 
+Object {newScore: 40, zombiesKilled: 4, scoreGain: 10}
+[18:50:10] [Zombie] Creating death particles 
+Object {x: 902.2624254444933, y: 192.8175560995578, count: 8}
+[18:50:10] [Particles] Creating particles at (902.2624254444933, 192.8175560995578) 
+Object {count: 8, color: "#55aa55"}
+[18:50:10] [Particles] Creating 5 particles 
+[18:50:10] [GameLoop] Stats 
+Object {fps: 60, zombies: 2, bullets: 3, particles: 9, wave: 1, …}
+[18:50:11] [Particles] Creating particles at (588.6465429107072, 161.29124569562774) 
+Object {count: 3, color: "#ffcc00"}
+[18:50:11] [Particles] Creating 3 particles 
+[18:50:11] [Particles] Creating particles at (570.3392666102544, 178.45497035511087) 
+Object {count: 3, color: "#ffcc00"}
+[18:50:11] [Particles] Creating 3 particles 
+[18:50:11] [GameLoop] Stats 
+Object {fps: 60, zombies: 3, bullets: 2, particles: 3, wave: 1, …}
+[18:50:11] [Particles] Creating particles at (567.6744206192786, 198.31700212867915) 
+Object {count: 3, color: "#ffcc00"}
+[18:50:11] [Particles] Creating 3 particles 
+[18:50:11] [Zombie] Zombie killed 
+Object {zombieX: 566.3854348755846, zombieY: 174.09050695118378, zombiesKilled: 4, waveThreshold: 10, wave: 1}
+[18:50:11] [Zombie] Score updated 
+Object {newScore: 50, zombiesKilled: 5, scoreGain: 10}
+[18:50:11] [Zombie] Creating death particles 
+Object {x: 566.3854348755846, y: 174.09050695118378, count: 8}
+[18:50:11] [Particles] Creating particles at (566.3854348755846, 174.09050695118378) 
+Object {count: 8, color: "#55aa55"}
+[18:50:11] [Particles] Creating 5 particles 
+[18:50:12] [Particles] Creating particles at (491.36424785818696, 119.6605534273255) 
+Object {count: 3, color: "#ffcc00"}
+[18:50:12] [Particles] Creating 3 particles 
+[18:50:12] [Particles] Creating particles at (482.761986117608, 141.38182515852236) 
+Object {count: 3, color: "#ffcc00"}
+[18:50:12] [Particles] Creating 3 particles 
+[18:50:12] [GameLoop] Stats 
+Object {fps: 60, zombies: 2, bullets: 2, particles: 6, wave: 1, …}
+[18:50:12] [Particles] Creating particles at (484.07128666354765, 141.13543761192747) 
+Object {count: 3, color: "#ffcc00"}
+[18:50:12] [Particles] Creating 3 particles 
+[18:50:12] [Zombie] Zombie killed 
+Object {zombieX: 484.1370706507116, zombieY: 126.2694970562457, zombiesKilled: 5, waveThreshold: 10, wave: 1}
+[18:50:12] [Zombie] Score updated 
+Object {newScore: 60, zombiesKilled: 6, scoreGain: 10}
+[18:50:12] [Zombie] Creating death particles 
+Object {x: 484.1370706507116, y: 126.2694970562457, count: 8}
+[18:50:12] [Particles] Creating particles at (484.1370706507116, 126.2694970562457) 
+Object {count: 8, color: "#55aa55"}
+[18:50:12] [Particles] Creating 5 particles 
+[18:50:13] [GameLoop] Stats 
+Object {fps: 60, zombies: 2, bullets: 2, particles: 0, wave: 1, …}
+[18:50:14] [Particles] Creating particles at (111.44437298508551, 315.9300135552755) 
+Object {count: 3, color: "#ffcc00"}
+[18:50:14] [Particles] Creating 3 particles 
+[18:50:14] [Particles] Creating particles at (119.2225450560656, 325.9092504745371) 
+Object {count: 3, color: "#ffcc00"}
+[18:50:14] [Particles] Creating 3 particles 
+[18:50:14] [Particles] Creating particles at (131.62033030107432, 317.7655332401406) 
+Object {count: 3, color: "#ffcc00"}
+[18:50:14] [Particles] Creating 3 particles 
+[18:50:14] [Zombie] Zombie killed 
+Object {zombieX: 111.92642470614759, zombieY: 315.2728520639371, zombiesKilled: 6, waveThreshold: 10, wave: 1}
+[18:50:14] [Zombie] Score updated 
+Object {newScore: 70, zombiesKilled: 7, scoreGain: 10}
+[18:50:14] [Zombie] Creating death particles 
+Object {x: 111.92642470614759, y: 315.2728520639371, count: 8}
+[18:50:14] [Particles] Creating particles at (111.92642470614759, 315.2728520639371) 
+Object {count: 8, color: "#55aa55"}
+[18:50:14] [Particles] Creating 5 particles 
+[18:50:14] [GameLoop] Stats 
+Object {fps: 60, zombies: 1, bullets: 3, particles: 11, wave: 1, …}
+[18:50:15] [GameLoop] Stats 
+Object {fps: 60, zombies: 2, bullets: 4, particles: 0, wave: 1, …}
+[18:50:16] [Particles] Creating particles at (57.45881351130927, 100.78040209572771) 
+Object {count: 3, color: "#ffcc00"}
+[18:50:16] [Particles] Creating 3 particles 
+[18:50:16] [GameLoop] Stats 
+Object {fps: 60, zombies: 2, bullets: 2, particles: 0, wave: 1, …}
+[18:50:17] [GameLoop] Stats 
+Object {fps: 60, zombies: 3, bullets: 4, particles: 0, wave: 1, …}
+[18:50:17] [Particles] Creating particles at (150.7344181785627, 125.35141660046995) 
+Object {count: 3, color: "#ffcc00"}
+[18:50:17] [Particles] Creating 3 particles 
+[18:50:18] [Particles] Creating particles at (164.16870903252908, 140.54698797256958) 
+Object {count: 3, color: "#ffcc00"}
+[18:50:18] [Particles] Creating 3 particles 
+[18:50:18] [Zombie] Zombie killed 
+Object {zombieX: 143.37810341332138, zombieY: 143.26169836362618, zombiesKilled: 7, waveThreshold: 10, wave: 1}
+[18:50:18] [Zombie] Score updated 
+Object {newScore: 80, zombiesKilled: 8, scoreGain: 10}
+[18:50:18] [Zombie] Creating death particles 
+Object {x: 143.37810341332138, y: 143.26169836362618, count: 8}
+[18:50:18] [Particles] Creating particles at (143.37810341332138, 143.26169836362618) 
+Object {count: 8, color: "#55aa55"}
+[18:50:18] [Particles] Creating 5 particles 
+[18:50:18] [GameLoop] Stats 
+Object {fps: 60, zombies: 2, bullets: 3, particles: 0, wave: 1, …}
+[18:50:19] [Particles] Creating particles at (781.0366478183681, 122.32469490988369) 
+Object {count: 3, color: "#ffcc00"}
+[18:50:19] [Particles] Creating 3 particles 
+[18:50:19] [Particles] Creating particles at (794.9311055472033, 134.03404104040573) 
+Object {count: 3, color: "#ffcc00"}
+[18:50:19] [Particles] Creating 3 particles 
+[18:50:19] [GameLoop] Stats 
+Object {fps: 60, zombies: 3, bullets: 3, particles: 4, wave: 1, …}
+[18:50:19] [Particles] Creating particles at (776.841422700489, 144.86675124239497) 
+Object {count: 3, color: "#ffcc00"}
+[18:50:19] [Particles] Creating 3 particles 
+[18:50:19] [Zombie] Zombie killed 
+Object {zombieX: 779.7007331843404, zombieY: 122.86251681334929, zombiesKilled: 8, waveThreshold: 10, wave: 1}
+[18:50:19] [Zombie] Score updated 
+Object {newScore: 90, zombiesKilled: 9, scoreGain: 10}
+[18:50:19] [Zombie] Creating death particles 
+Object {x: 779.7007331843404, y: 122.86251681334929, count: 8}
+[18:50:19] [Particles] Creating particles at (779.7007331843404, 122.86251681334929) 
+Object {count: 8, color: "#55aa55"}
+[18:50:19] [Particles] Creating 5 particles 
+[18:50:20] [GameLoop] Stats 
+Object {fps: 60, zombies: 2, bullets: 2, particles: 0, wave: 1, …}
+[18:50:21] [Particles] Creating particles at (381.38128042647423, 135.33712979072058) 
+Object {count: 3, color: "#ffcc00"}
+[18:50:21] [Particles] Creating 3 particles 
+[18:50:21] [Particles] Creating particles at (388.8484058575218, 142.6543228615565) 
+Object {count: 3, color: "#ffcc00"}
+[18:50:21] [Particles] Creating 3 particles 
+[18:50:21] [Particles] Creating particles at (391.95391824223594, 152.34307506164046) 
+Object {count: 3, color: "#ffcc00"}
+[18:50:21] [Particles] Creating 3 particles 
+[18:50:21] [Zombie] Zombie killed 
+Object {zombieX: 388.57549109243416, zombieY: 130.08626414148605, zombiesKilled: 9, waveThreshold: 10, wave: 1}
+[18:50:21] [Zombie] Score updated 
+Object {newScore: 100, zombiesKilled: 10, scoreGain: 10}
+[18:50:21] [Zombie] Creating death particles 
+Object {x: 388.57549109243416, y: 130.08626414148605, count: 8}
+[18:50:21] [Particles] Creating particles at (388.57549109243416, 130.08626414148605) 
+Object {count: 8, color: "#55aa55"}
+[18:50:21] [Particles] Creating 5 particles 
+[18:50:21] [Zombie] Wave completion triggered 
+Object {zombiesKilled: 10, threshold: 10, currentWave: 1}
+[18:50:21] [Zombie] Checking wave transition conditions in timeout 
+[18:50:21] [Zombie] Starting next wave from zombie death handler 
+[18:50:21] [Wave] Starting next wave - current wave: 1, zombies killed: 10, threshold: 10 
+[18:50:21] [Wave] Game state before wave change 
+Object {running: true, score: 100, wave: 1, zombiesKilled: 10, timeSinceLastSpawn: 33.30000000000291, …}
+[18:50:21] [Game] Pausing game 
+[18:50:21] [Game] Animation frame cancelled 
+[18:50:21] [Wave] Wave transitioned: 1 -> 2, new threshold: 20 
+[18:50:21] [Wave] Cleared 2 zombies for new wave 
+[18:50:21] [Wave] Showing upgrade screen 
+[18:50:21] [Game] Pausing game 
+[18:50:21] [Wave] Game state after wave change 
+Object {wave: 2, zombieCount: 0, running: false, score: 100, waveCompleted: true}
+[18:50:21] [Game] Pausing game 
+Applied upgrade Auto-Aimer to level 1
+[18:50:33] [Game] Pausing game 
+Success sound skipped (muted)
+[18:50:33] [Game] Starting game 
+[18:50:33] [Game] Game state reset 
+Object {running: true, score: 0, wave: 1, zombiesKilled: 0, timeSinceLastSpawn: -69791.5, …}
+[18:50:33] [GameLoop] Stats 
+Object {fps: 0, zombies: 0, bullets: 0, particles: 0, wave: 1, …}
+[18:50:33] [Game] Game loop started 
+[18:50:33] [GameLoop] Stats 
+Object {fps: 0, zombies: 0, bullets: 0, particles: 0, wave: 1, …}

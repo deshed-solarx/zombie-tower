@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Tower base -->
+  <rect x="30" y="60" width="40" height="30" fill="#777" />
+  
+  <!-- Tower mid section -->
+  <rect x="35" y="40" width="30" height="20" fill="#888" />
+  
+  <!-- Tower top -->
+  <rect x="40" y="25" width="20" height="15" fill="#999" />
+  
+  <!-- Cannon -->
+  <rect x="45" y="10" width="10" height="25" fill="#444" />
+  
+  <!-- Windows -->
+  <rect x="40" y="65" width="8" height="10" fill="#333" />
+  <rect x="52" y="65" width="8" height="10" fill="#333" />
+  <rect x="40" y="45" width="7" height="7" fill="#333" />
+  <rect x="53" y="45" width="7" height="7" fill="#333" />
+</svg>

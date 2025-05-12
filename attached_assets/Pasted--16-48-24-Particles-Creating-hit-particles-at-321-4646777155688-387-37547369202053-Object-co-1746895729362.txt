@@ -1,0 +1,79 @@
+[16:48:24] [Particles] Creating hit particles at (321.4646777155688, 387.37547369202053) 
+Object {count: 3, color: "#ffcc00"}
+[16:48:24] [Particles] Creating  3 particles 
+[16:48:24] [Bullets] Created bullets 
+Object {count: 1, bounces: 0, ghost: false, damagePerBounce: 0, speed: 600, …}
+[16:48:24] [GameLoop] Stats 
+Object {fps: 60, zombies: 8, friendlyZombies: 0, bullets: 2, particles: 3, …}
+[16:48:24] [Particles] Creating hit particles at (325.9879100661975, 401.62427288252934) 
+Object {count: 3, color: "#ffcc00"}
+[16:48:24] [Particles] Creating  3 particles 
+[16:48:24] [Bullets] Created bullets 
+Object {count: 1, bounces: 0, ghost: false, damagePerBounce: 0, speed: 600, …}
+[16:48:24] [Zombie] Zombie killed by player 
+Object {zombieType: "regular", x: 321.49124612162876, y: 401.8690727015719, fromFriendly: false, zombiesKilled: 10, …}
+[16:48:24] [Particles] Creating hit particles at (321.49124612162876, 401.8690727015719) 
+Object {count: 8, color: "#55aa55"}
+[16:48:24] [Particles] Creating  5 particles 
+[16:48:24] [Zombie] Wave completion triggered 
+Object {zombiesKilled: 10, threshold: 10, currentWave: 1, killedByFriendly: false}
+[16:48:24] [Particles] Creating hit particles at (334.1363728051323, 408.6155852831279) 
+Object {count: 3, color: "#ffcc00"}
+[16:48:24] [Particles] Creating  3 particles 
+[16:48:24] [Zombie] Creating death particles from bullet hit 
+Object {x: 321.49124612162876, y: 401.8690727015719, count: 8}
+[16:48:24] [Particles] Creating hit particles at (321.49124612162876, 401.8690727015719) 
+Object {count: 8, color: "#55aa55"}
+[16:48:24] [Particles] Creating  5 particles 
+[16:48:24] [Wave] Wave completed 
+Object {wave: 1, zombiesKilled: 10, threshold: 10}
+[16:48:24] [Bullets] Created bullets 
+Object {count: 1, bounces: 0, ghost: false, damagePerBounce: 0, speed: 600, …}
+[16:48:24] [Bullets] Created bullets 
+Object {count: 1, bounces: 0, ghost: false, damagePerBounce: 0, speed: 600, …}
+[16:48:24] [Zombie] Prevented spawn during wave completion 
+[16:48:24] [Game] Pausing game 
+[16:48:24] [Game] Animation frame cancelled 
+[16:48:24] [Game] Pausing game 
+Applied upgrade Multi-Shot to level 1
+[16:48:28] [Game] Pausing game 
+Success sound skipped (muted)
+Initial game activation - starting game
+[16:48:28] [Game] Starting game 
+Object {preserveState: false}
+[16:48:28] [Game] Game state reset 
+Object {running: true, score: 0, wave: 1, zombiesKilled: 0, timeSinceLastSpawn: 116.50799999999799, …}
+[16:48:28] [GameLoop] Stats 
+Object {fps: 0, zombies: 0, friendlyZombies: 0, bullets: 0, particles: 0, …}
+[16:48:28] [Zombie] Spawned regular zombie 1/∞ for wave 1 
+[16:48:28] [Zombie] Spawned regular zombie 2/∞ for wave 1 
+[16:48:28] [Game] Spawned initial zombie to start game 
+[16:48:28] [Game] Game loop started 
+[16:48:28] [GameLoop] Stats 
+Object {fps: 0, zombies: 2, friendlyZombies: 0, bullets: 0, particles: 0, …}
+Resuming game after upgrade with preserved state
+[16:48:28] [Game] Resuming after upgrade 
+[16:48:28] [Game] Warning: No saved game state to restore 
+Applied multi-shot upgrade 2
+[16:48:28] [Game] Resuming with state 
+Object {wave: 1, score: 0, bulletCount: 2, bulletBounces: 0, autoAimEnabled: false}
+[16:48:28] [GameLoop] Stats 
+Object {fps: 0, zombies: 2, friendlyZombies: 0, bullets: 0, particles: 0, …}
+[16:48:28] [Zombie] Spawned regular zombie 3/∞ for wave 1 
+[16:48:28] [Zombie] Spawned regular zombie 4/∞ for wave 1 
+[16:48:28] [Game] Spawned initial zombie to start wave 
+[16:48:28] [Game] Game loop resumed after upgrade 
+[16:48:28] [GameLoop] Stats 
+Object {fps: 0, zombies: 4, friendlyZombies: 0, bullets: 0, particles: 0, …}
+[16:48:29] [GameLoop] Stats 
+Object {fps: 60, zombies: 4, friendlyZombies: 0, bullets: 0, particles: 0, …}
+[16:48:29] [Zombie] Spawned regular zombie 5/∞ for wave 1 
+[16:48:30] [GameLoop] Stats 
+Object {fps: 60, zombies: 5, friendlyZombies: 0, bullets: 0, particles: 0, …}
+[16:48:30] [Zombie] Spawned regular zombie 6/∞ for wave 1 
+[16:48:31] [Zombie] Spawned regular zombie 7/∞ for wave 1 
+[16:48:31] [GameLoop] Stats 
+Object {fps: 60, zombies: 7, friendlyZombies: 0, bullets: 0, particles: 0, …}
+[16:48:31] [Zombie] Spawned regular zombie 8/∞ for wave 1 
+[16:48:32] [GameLoop] Stats 
+Object {fps: 60, zombies: 8, friendlyZombies: 0, bullets: 0, particles: 0, …}

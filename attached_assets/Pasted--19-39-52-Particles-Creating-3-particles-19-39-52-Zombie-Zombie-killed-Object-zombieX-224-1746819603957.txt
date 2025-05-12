@@ -1,0 +1,41 @@
+[19:39:52] [Particles] Creating 3 particles 
+[19:39:52] [Zombie] Zombie killed 
+Object {zombieX: 224.60563347876956, zombieY: 298.3214957946844, zombiesKilled: 9, waveThreshold: 15, wave: 2}
+[19:39:52] [Zombie] Score updated 
+Object {newScore: 250, zombiesKilled: 10, scoreGain: 15}
+[19:39:52] [Zombie] Creating death particles 
+Object {x: 224.60563347876956, y: 298.3214957946844, count: 8}
+[19:39:52] [Particles] Creating particles at (224.60563347876956, 298.3214957946844) 
+Object {count: 8, color: "#55aa55"}
+[19:39:52] [Particles] Creating 5 particles 
+[19:39:52] [GameLoop] Stats 
+Object {fps: 60, zombies: 0, bullets: 3, particles: 0, wave: 2, …}
+[19:39:53] [Zombie] Already spawned max zombies for wave 2 (10/10) 
+[19:39:53] [GameLoop] Stats 
+Object {fps: 60, zombies: 0, bullets: 2, particles: 0, wave: 2, …}
+[19:39:54] [Zombie] Already spawned max zombies for wave 2 (10/10) 
+[19:39:54] [GameLoop] Stats 
+Object {fps: 30, zombies: 0, bullets: 0, particles: 0, wave: 2, …}
+[19:39:55] [Zombie] Already spawned max zombies for wave 2 (10/10) 
+[19:39:55] [GameLoop] Stats 
+Object {fps: 60, zombies: 0, bullets: 0, particles: 0, wave: 2, …}
+[19:39:55] [Zombie] Already spawned max zombies for wave 2 (10/10) 
+[19:39:56] [Zombie] Already spawned max zombies for wave 2 (10/10) 
+[19:39:56] [GameLoop] Stats 
+Object {fps: 60, zombies: 0, bullets: 0, particles: 0, wave: 2, …}
+[19:39:57] [Zombie] Already spawned max zombies for wave 2 (10/10) 
+[19:39:57] [GameLoop] Stats 
+Object {fps: 60, zombies: 0, bullets: 0, particles: 0, wave: 2, …}
+[19:39:58] [Zombie] Already spawned max zombies for wave 2 (10/10) 
+[19:39:58] [GameLoop] Stats 
+Object {fps: 60, zombies: 0, bullets: 0, particles: 0, wave: 2, …}
+[19:39:59] [Zombie] Already spawned max zombies for wave 2 (10/10) 
+[19:39:59] [GameLoop] Stats 
+Object {fps: 60, zombies: 0, bullets: 0, particles: 0, wave: 2, …}
+[19:40:00] [Zombie] Already spawned max zombies for wave 2 (10/10) 
+[19:40:00] [GameLoop] Stats 
+Object {fps: 60, zombies: 0, bullets: 0, particles: 0, wave: 2, …}
+[19:40:00] [Zombie] Already spawned max zombies for wave 2 (10/10) 
+[19:40:01] [Zombie] Already spawned max zombies for wave 2 (10/10) 
+[19:40:01] [GameLoop] Stats 
+Object {fps: 60, zombies: 0, bullets: 0, particles: 0, wave: 2, …}
