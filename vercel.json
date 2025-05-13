@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "node vercel-build-actual.cjs",
+  "buildCommand": "node vercel-direct-build.cjs",
   "outputDirectory": "dist/public",
   "functions": {
     "api/*.js": {
