@@ -184,21 +184,15 @@ async function main() {
         console.log("Starting Notion setup process...");
         const databases = await setupNotionDatabases();
         
-        // Ask if user wants to add sample data
-        const readline = require('readline').createInterface({
-            input: process.stdin,
-            output: process.stdout
-        });
+        // Ask if user wants to add sample data via console
+        console.log("Do you want to add sample data? (y/n)");
+        console.log("Adding sample data automatically...");
         
-        readline.question('Do you want to add sample data? (y/n): ', async (answer: string) => {
-            if (answer.toLowerCase() === 'y') {
-                await createSampleData(databases);
-            }
-            
-            console.log("Notion setup complete! 🎉");
-            readline.close();
-            process.exit(0);
-        });
+        // Add sample data
+        await createSampleData(databases);
+        
+        console.log("Notion setup complete! 🎉");
+        process.exit(0);
     } catch (error) {
         console.error("Error during Notion setup:", error);
         process.exit(1);

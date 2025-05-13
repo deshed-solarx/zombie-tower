@@ -1,6 +1,7 @@
 import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
+import { getTopScores, addHighScore, findDatabaseByTitle } from "./notion";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // API route for player data
@@ -114,6 +115,111 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     } catch (error) {
       console.error('Error in PUT /api/player-data:', error);
+      return res.status(500).json({
+        success: false,
+        message: 'Internal Server Error'
+      });
+    }
+  });
+  
+  // Leaderboard API endpoints
+  app.get("/api/leaderboard", async (req: Request, res: Response) => {
+    try {
+      // Check if Notion credentials are available
+      const hasNotionCredentials = 
+        process.env.NOTION_INTEGRATION_SECRET && 
+        process.env.NOTION_PAGE_URL;
+
+      if (!hasNotionCredentials) {
+        return res.status(503).json({ 
+          success: false, 
+          message: "Notion integration is not configured."
+        });
+      }
+
+      // Find the leaderboard database in Notion
+      const leaderboardDb = await findDatabaseByTitle("Zombie Defense Leaderboard");
+      
+      if (!leaderboardDb) {
+        return res.status(404).json({ 
+          success: false, 
+          message: "Leaderboard database not found in Notion."
+        });
+      }
+
+      // Get top scores
+      const limit = req.query.limit ? parseInt(req.query.limit as string) : 10;
+      const scores = await getTopScores(leaderboardDb.id, limit);
+      
+      return res.status(200).json({ 
+        success: true, 
+        scores 
+      });
+    } catch (error) {
+      console.error('Error in GET /api/leaderboard:', error);
+      return res.status(500).json({
+        success: false,
+        message: 'Internal Server Error'
+      });
+    }
+  });
+  
+  app.post("/api/leaderboard", async (req: Request, res: Response) => {
+    try {
+      // Check if Notion credentials are available
+      const hasNotionCredentials = 
+        process.env.NOTION_INTEGRATION_SECRET && 
+        process.env.NOTION_PAGE_URL;
+
+      if (!hasNotionCredentials) {
+        return res.status(503).json({ 
+          success: false, 
+          message: "Notion integration is not configured."
+        });
+      }
+
+      // Find the leaderboard database in Notion
+      const leaderboardDb = await findDatabaseByTitle("Zombie Defense Leaderboard");
+      
+      if (!leaderboardDb) {
+        return res.status(404).json({ 
+          success: false, 
+          message: "Leaderboard database not found in Notion."
+        });
+      }
+      
+      // Validate required fields
+      const { playerName, score, waveReached } = req.body;
+      
+      if (!playerName || typeof score !== 'number' || typeof waveReached !== 'number') {
+        return res.status(400).json({ 
+          success: false, 
+          message: "Missing required fields: playerName, score, and waveReached"
+        });
+      }
+      
+      // Add the score to Notion
+      const result = await addHighScore(leaderboardDb.id, {
+        playerName,
+        score,
+        waveReached,
+        date: new Date()
+      });
+      
+      if (result) {
+        return res.status(201).json({ 
+          success: true, 
+          message: "Score added to leaderboard successfully",
+          scoreId: result.id
+        });
+      } else {
+        return res.status(500).json({ 
+          success: false, 
+          message: "Failed to add score to leaderboard"
+        });
+      }
+    } catch (error) {
+      console.error('Error in POST /api/leaderboard:', error);
       return res.status(500).json({
         success: false,
         message: 'Internal Server Error'
