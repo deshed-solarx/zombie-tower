@@ -1,123 +1,157 @@
-// API handler for player data
-import { storage } from "../server/storage";
+// Vercel serverless function for player-data API
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
 
-export default async function handler(req, res) {
-  // Set CORS headers to allow access from any origin
+/**
+ * Handler for player data API
+ */
+module.exports = async (req, res) => {
+  // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   
-  // Handle preflight OPTIONS request
+  // Handle preflight requests
   if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
+    return res.status(200).end();
   }
-
+  
   try {
-    // Handle GET request - retrieve player data
+    // GET request - fetch player data
     if (req.method === 'GET') {
       const { playerId } = req.query;
       
       if (!playerId) {
         return res.status(400).json({
           success: false,
-          message: 'Player ID is required',
+          message: 'Player ID is required'
         });
       }
       
-      // Try to get the player data
-      const player = await storage.getPlayerById(playerId);
+      // Try to find the player
+      let player;
+      try {
+        player = await prisma.players.findUnique({
+          where: { playerId }
+        });
+      } catch (error) {
+        console.error('Database error:', error);
+      }
       
+      // If player exists, return the data
       if (player) {
-        // Return existing player data
         return res.status(200).json({
           success: true,
           player
         });
-      } else {
-        // Create a new player if not found
-        const newPlayer = await storage.createPlayer({ playerId });
+      }
+      
+      // Create a new player if not found
+      const displayName = `Player_${playerId.substring(0, 6)}`;
+      
+      try {
+        const newPlayer = await prisma.players.create({
+          data: {
+            playerId,
+            displayName,
+            coins: 0,
+            permUpgrades: {},
+          }
+        });
+        
         return res.status(201).json({
           success: true,
           player: newPlayer,
           message: 'New player created'
         });
+      } catch (error) {
+        console.error('Error creating player:', error);
+        return res.status(500).json({
+          success: false,
+          message: 'Failed to create player'
+        });
       }
     }
     
-    // Handle POST request - create new player
+    // POST request - create new player
     if (req.method === 'POST') {
       const { playerId, displayName } = req.body;
       
       if (!playerId) {
         return res.status(400).json({
           success: false,
-          message: 'Player ID is required',
+          message: 'Player ID is required'
         });
       }
       
-      // Check if player already exists
-      const existingPlayer = await storage.getPlayerById(playerId);
-      
-      if (existingPlayer) {
-        return res.status(409).json({
+      try {
+        const newPlayer = await prisma.players.create({
+          data: {
+            playerId,
+            displayName: displayName || `Player_${playerId.substring(0, 6)}`,
+            coins: 0,
+            permUpgrades: {},
+          }
+        });
+        
+        return res.status(201).json({
+          success: true,
+          player: newPlayer
+        });
+      } catch (error) {
+        console.error('Error creating player:', error);
+        return res.status(500).json({
           success: false,
-          message: 'Player already exists'
+          message: 'Failed to create player'
         });
       }
-      
-      // Create a new player
-      const newPlayer = await storage.createPlayer({ 
-        playerId,
-        displayName: displayName || undefined
-      });
-      
-      return res.status(201).json({
-        success: true,
-        player: newPlayer
-      });
     }
     
-    // Handle PUT request - update player data
+    // PUT request - update player data
     if (req.method === 'PUT') {
       const { playerId } = req.query;
-      const updateData = req.body;
+      const updates = req.body;
       
       if (!playerId) {
         return res.status(400).json({
           success: false,
-          message: 'Player ID is required',
+          message: 'Player ID is required'
         });
       }
       
-      // Update player data
-      const updatedPlayer = await storage.updatePlayer(playerId, updateData);
-      
-      if (!updatedPlayer) {
-        return res.status(404).json({
+      try {
+        const updatedPlayer = await prisma.players.update({
+          where: { playerId },
+          data: updates
+        });
+        
+        return res.status(200).json({
+          success: true,
+          player: updatedPlayer
+        });
+      } catch (error) {
+        console.error('Error updating player:', error);
+        return res.status(500).json({
           success: false,
-          message: 'Player not found'
+          message: 'Failed to update player'
         });
       }
-      
-      return res.status(200).json({
-        success: true,
-        player: updatedPlayer
-      });
     }
     
-    // Handle unsupported methods
+    // If we reach here, the method is not supported
     return res.status(405).json({
       success: false,
       message: 'Method not allowed'
     });
     
   } catch (error) {
-    console.error('Player data API error:', error);
+    console.error('Unexpected error:', error);
     return res.status(500).json({
       success: false,
-      message: 'Internal Server Error',
-      error: error.message
+      message: 'Internal server error'
     });
+  } finally {
+    // Close the Prisma client connection
+    await prisma.$disconnect();
   }
-}
+};
