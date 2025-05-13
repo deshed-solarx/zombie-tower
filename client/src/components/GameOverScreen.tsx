@@ -3,9 +3,11 @@ import { Button } from './ui/button';
 interface GameOverScreenProps {
   score: number;
   onRestart: () => void;
+  coinsEarned?: number;
+  totalCoins?: number;
 }
 
-const GameOverScreen = ({ score, onRestart }: GameOverScreenProps) => {
+const GameOverScreen = ({ score, onRestart, coinsEarned = 0, totalCoins = 0 }: GameOverScreenProps) => {
   return (
     <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black/80">
       <div className="max-w-md w-full bg-black/90 rounded-lg p-8 text-center">
@@ -18,6 +20,17 @@ const GameOverScreen = ({ score, onRestart }: GameOverScreenProps) => {
         <div className="mb-8 bg-gray-800 rounded-lg p-6">
           <h2 className="text-2xl font-semibold text-white mb-2">Final Score</h2>
           <p className="text-5xl font-bold text-yellow-400">{score}</p>
+          
+          {coinsEarned > 0 && (
+            <div className="mt-4 pt-4 border-t border-gray-700">
+              <p className="text-xl text-green-400 font-semibold">
+                + {coinsEarned} coins earned!
+              </p>
+              <p className="text-sm text-gray-400 mt-1">
+                Total Coins: {totalCoins}
+              </p>
+            </div>
+          )}
         </div>
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center">

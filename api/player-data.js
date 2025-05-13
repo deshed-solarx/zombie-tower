@@ -1,14 +1,24 @@
-import type { Express, Request, Response } from "express";
-import { createServer, type Server } from "http";
-import { storage } from "./storage";
+// API handler for player data
+import { storage } from "../server/storage";
 
-export async function registerRoutes(app: Express): Promise<Server> {
-  // API route for player data
-  app.get("/api/player-data", async (req: Request, res: Response) => {
-    try {
+export default async function handler(req, res) {
+  // Set CORS headers to allow access from any origin
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  
+  // Handle preflight OPTIONS request
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+
+  try {
+    // Handle GET request - retrieve player data
+    if (req.method === 'GET') {
       const { playerId } = req.query;
       
-      if (!playerId || typeof playerId !== 'string') {
+      if (!playerId) {
         return res.status(400).json({
           success: false,
           message: 'Player ID is required',
@@ -33,19 +43,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
           message: 'New player created'
         });
       }
-    } catch (error) {
-      console.error('Error in GET /api/player-data:', error);
-      return res.status(500).json({
-        success: false,
-        message: 'Internal Server Error'
-      });
     }
-  });
-  
-  // Create new player
-  app.post("/api/player-data", async (req: Request, res: Response) => {
-    try {
-      const { playerId, displayName, coins, permUpgrades } = req.body;
+    
+    // Handle POST request - create new player
+    if (req.method === 'POST') {
+      const { playerId, displayName } = req.body;
       
       if (!playerId) {
         return res.status(400).json({
@@ -67,34 +69,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Create a new player
       const newPlayer = await storage.createPlayer({ 
         playerId,
-        displayName: displayName || undefined,
-        coins: coins !== undefined ? coins : 0,
-        permUpgrades: permUpgrades || {}
+        displayName: displayName || undefined
       });
       
       return res.status(201).json({
         success: true,
         player: newPlayer
       });
-    } catch (error) {
-      console.error('Error in POST /api/player-data:', error);
-      return res.status(500).json({
-        success: false,
-        message: 'Internal Server Error'
-      });
     }
-  });
-  
-  // Update player data
-  app.put("/api/player-data", async (req: Request, res: Response) => {
-    try {
+    
+    // Handle PUT request - update player data
+    if (req.method === 'PUT') {
       const { playerId } = req.query;
       const updateData = req.body;
       
-      if (!playerId || typeof playerId !== 'string') {
+      if (!playerId) {
         return res.status(400).json({
           success: false,
-          message: 'Player ID is required as a query parameter',
+          message: 'Player ID is required',
         });
       }
       
@@ -112,15 +104,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
         success: true,
         player: updatedPlayer
       });
-    } catch (error) {
-      console.error('Error in PUT /api/player-data:', error);
-      return res.status(500).json({
-        success: false,
-        message: 'Internal Server Error'
-      });
     }
-  });
-
-  const httpServer = createServer(app);
-  return httpServer;
+    
+    // Handle unsupported methods
+    return res.status(405).json({
+      success: false,
+      message: 'Method not allowed'
+    });
+    
+  } catch (error) {
+    console.error('Player data API error:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Internal Server Error',
+      error: error.message
+    });
+  }
 }
