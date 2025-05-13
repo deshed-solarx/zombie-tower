@@ -1,20 +1,42 @@
 import { Client } from "@notionhq/client";
 
-// Initialize Notion client
-export const notion = new Client({
-    auth: process.env.NOTION_INTEGRATION_SECRET!,
-});
+// Initialize Notion client with proper error handling for different environments
+const getNotionClient = () => {
+    // Check if we're in an environment where Notion secrets are available
+    if (!process.env.NOTION_INTEGRATION_SECRET) {
+        console.warn("NOTION_INTEGRATION_SECRET not found, Notion integration will be unavailable");
+        return null;
+    }
+    
+    try {
+        return new Client({
+            auth: process.env.NOTION_INTEGRATION_SECRET,
+        });
+    } catch (error) {
+        console.error("Failed to initialize Notion client:", error);
+        return null;
+    }
+};
+
+export const notion = getNotionClient() || new Client({ auth: 'dummy-for-type-safety' });
 
 // Extract the page ID from the Notion page URL
 function extractPageIdFromUrl(pageUrl: string): string {
-    const match = pageUrl.match(/([a-f0-9]{32})(?:[?#]|$)/i);
-    if (match && match[1]) {
-        return match[1];
+    if (!pageUrl) return "";
+    
+    try {
+        const match = pageUrl.match(/([a-f0-9]{32})(?:[?#]|$)/i);
+        if (match && match[1]) {
+            return match[1];
+        }
+    } catch (error) {
+        console.error("Error extracting page ID:", error);
     }
-
-    throw Error("Failed to extract page ID");
+    
+    return "";
 }
 
+// Get page ID with fallback to empty string
 export const NOTION_PAGE_ID = process.env.NOTION_PAGE_URL 
     ? extractPageIdFromUrl(process.env.NOTION_PAGE_URL) 
     : '';
