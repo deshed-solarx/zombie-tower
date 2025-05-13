@@ -3,15 +3,36 @@ import GameContainer from "./components/GameContainer";
 import StartScreen from "./components/StartScreen";
 import GameOverScreen from "./components/GameOverScreen";
 import { useGame } from "./lib/stores/useGame";
+import PlayerDataService from "./services/PlayerDataService";
 
 function App() {
   const { phase, start, restart, end } = useGame();
   const [score, setScore] = useState(0);
+  const [coins, setCoins] = useState(0);
   
   // Create stable callback functions that won't change on each render
-  const handleGameOver = useCallback(() => {
+  const handleGameOver = useCallback(async () => {
     console.log('Game over triggered from GameContainer');
     try {
+      // Award coins based on score (e.g., 1 coin per 10 points)
+      const coinsEarned = Math.floor(score / 10);
+      
+      // Update player's coins in the database
+      if (coinsEarned > 0) {
+        try {
+          // Load current player data
+          const playerData = await PlayerDataService.getPlayerData();
+          
+          // Update coins
+          const updatedPlayer = await PlayerDataService.updateCoins(coinsEarned);
+          setCoins(updatedPlayer.coins);
+          
+          console.log(`Earned ${coinsEarned} coins, new total: ${updatedPlayer.coins}`);
+        } catch (error) {
+          console.error('Failed to update coins:', error);
+        }
+      }
+      
       // Force a small delay before state change to prevent React state conflicts
       setTimeout(() => {
         end();
@@ -22,12 +43,26 @@ function App() {
       // Ensure game end even if there was an error
       end();
     }
-  }, [end]);
+  }, [end, score]);
   
   const handleScoreUpdate = useCallback((newScore: number) => {
     if (typeof newScore === 'number' && isFinite(newScore)) {
       setScore(newScore);
     }
+  }, []);
+  
+  useEffect(() => {
+    // Load player data when the app starts
+    const loadPlayerData = async () => {
+      try {
+        const playerData = await PlayerDataService.getPlayerData();
+        setCoins(playerData.coins);
+      } catch (error) {
+        console.error('Failed to load player data:', error);
+      }
+    };
+    
+    loadPlayerData();
   }, []);
   
   useEffect(() => {
@@ -52,7 +87,12 @@ function App() {
       />
       
       {phase === "ended" && (
-        <GameOverScreen score={score} onRestart={restart} />
+        <GameOverScreen 
+          score={score} 
+          onRestart={restart}
+          coinsEarned={Math.floor(score / 10)} 
+          totalCoins={coins}
+        />
       )}
     </div>
   );
