@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "cd client && npm install && npm run build",
+  "buildCommand": "node vercel-build.cjs",
   "outputDirectory": "client/dist",
   "functions": {
     "api/*.js": {
