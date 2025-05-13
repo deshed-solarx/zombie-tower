@@ -1,8 +1,7 @@
 {
   "version": 2,
-  "buildCommand": "node --no-warnings --experimental-modules vercel-build.mjs",
-  "installCommand": "npm install",
-  "outputDirectory": "dist/public",
+  "buildCommand": "cd client && npm install && npm run build",
+  "outputDirectory": "client/dist",
   "functions": {
     "api/*.js": {
       "memory": 1024,
@@ -11,7 +10,7 @@
   },
   "rewrites": [
     { "source": "/api/:path*", "destination": "/api/:path*" },
-    { "source": "/(.*)", "destination": "/" }
+    { "source": "/(.*)", "destination": "/index.html" }
   ],
   "headers": [
     {

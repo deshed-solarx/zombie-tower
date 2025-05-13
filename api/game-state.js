@@ -1,22 +1,44 @@
-// Simple game state API for Vercel
+// API handler for game state
 export default function handler(req, res) {
-  // Set CORS headers
+  // Set CORS headers to allow access from any origin
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   
-  // Handle OPTIONS request for CORS
+  // Handle preflight OPTIONS request
   if (req.method === 'OPTIONS') {
     res.status(200).end();
     return;
   }
   
-  // Simple response for all requests
-  res.status(200).json({
-    status: 'success',
-    message: 'Game API is running',
-    game: 'Zombie Tower Defense',
-    version: '1.0.0',
-    serverTime: new Date().toISOString()
+  // For POST requests, save game state would go here
+  if (req.method === 'POST') {
+    try {
+      // In a real implementation, you would save the state to a database
+      // For now, we'll just echo it back
+      const gameState = req.body;
+      
+      return res.status(200).json({
+        success: true,
+        message: 'Game state saved successfully',
+        gameState
+      });
+    } catch (error) {
+      return res.status(400).json({
+        success: false,
+        message: 'Failed to save game state',
+        error: error.message
+      });
+    }
+  }
+  
+  // For GET requests, return default game state
+  return res.status(200).json({
+    success: true,
+    defaultState: {
+      wave: 1,
+      score: 0,
+      towerHealth: 100
+    }
   });
 }
