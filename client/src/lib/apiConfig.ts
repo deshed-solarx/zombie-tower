@@ -1,21 +1,24 @@
 // API configuration for different environments
 
-// Check if we're in a static deployment (like Vercel)
-const isStaticDeployment = import.meta.env.VITE_STATIC_DEPLOYMENT === 'true';
+// Detect if we're in a Vercel deployment
+const isVercelDeployment = process.env.IS_VERCEL_DEPLOYMENT === 'true' || import.meta.env.VITE_IS_VERCEL === 'true';
 
-// Base API URL - defaults to relative path for same-origin requests
-export const API_BASE_URL = isStaticDeployment 
-  ? 'https://your-backend-api-url.com' // Replace with your actual backend API URL if you set one up
-  : '/api';
+// For static deployments (like Vercel), we can use a relative path for serverless functions
+export const API_BASE_URL = '/api';
 
-// For static deployments without a backend, we can provide mock functionality
-export const isBackendAvailable = !isStaticDeployment;
+// Whether to use static mode (client-side only features)
+export const isStaticMode = process.env.STATIC_BUILD === 'true' || import.meta.env.VITE_STATIC_MODE === 'true' || isVercelDeployment;
+
+// Export configuration object
+export const API_CONFIG = {
+  isVercelDeployment,
+  API_BASE_URL,
+  isStaticMode
+};
 
 // Log configuration in development
 if (import.meta.env.DEV) {
-  console.log('API Configuration:', {
-    isStaticDeployment,
-    API_BASE_URL,
-    isBackendAvailable
-  });
+  console.log('API Configuration:', API_CONFIG);
 }
+
+export default API_CONFIG;

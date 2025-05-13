@@ -1,73 +1,49 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="module">
+import { createHotContext } from "/@vite/client";
+const hot = createHotContext("/__dummy__runtime-error-plugin");
+
+function sendError(error) {
+  if (!(error instanceof Error)) {
+    error = new Error("(unknown runtime error)");
+  }
+  const serialized = {
+    message: error.message,
+    stack: error.stack,
+  };
+  hot.send("runtime-error-plugin:error", serialized);
+}
+
+window.addEventListener("error", (evt) => {
+  sendError(evt.error);
+});
+
+window.addEventListener("unhandledrejection", (evt) => {
+  sendError(evt.reason);
+});
+</script>
+
+  <script type="module">
+import RefreshRuntime from "/@react-refresh"
+RefreshRuntime.injectIntoGlobalHook(window)
+window.$RefreshReg$ = () => {}
+window.$RefreshSig$ = () => (type) => type
+window.__vite_plugin_react_preamble_installed__ = true
+</script>
+
+  <script type="module" src="/@vite/client"></script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zombie Tower Defense</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #333;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-    }
-    
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-      color: #4caf50;
-    }
-    
-    p {
-      max-width: 600px;
-      text-align: center;
-      margin-bottom: 20px;
-      line-height: 1.6;
-    }
-    
-    button {
-      background-color: #4caf50;
-      border: none;
-      color: white;
-      padding: 15px 32px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      margin: 4px 2px;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-  </style>
+  <meta name="description" content="2D tower defense game against zombies" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
 </head>
 <body>
-  <h1>Zombie Tower Defense</h1>
-  <p>Welcome to Zombie Tower Defense! The game is being served from Vercel's serverless environment.</p>
-  <button id="startGameBtn">Start Game</button>
-  <p>API Status: <span id="apiStatus">Checking...</span></p>
-  
-  <script>
-    // Check API status
-    fetch('/api/game-state')
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById('apiStatus').textContent = 'Connected ✅';
-        console.log('API response:', data);
-      })
-      .catch(error => {
-        document.getElementById('apiStatus').textContent = 'Error ❌';
-        console.error('API error:', error);
-      });
-    
-    // Start game button
-    document.getElementById('startGameBtn').addEventListener('click', () => {
-      alert('Game functionality will be integrated here.');
-    });
-  </script>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx?v=13EsAwWARob1DYBVjK3fj"></script>
 </body>
 </html>

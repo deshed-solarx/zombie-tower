@@ -1,5 +1,5 @@
 import { QueryClient, QueryFunction } from "@tanstack/react-query";
-import { API_BASE_URL, isBackendAvailable } from "./apiConfig";
+import { API_BASE_URL, isStaticMode } from "./apiConfig";
 
 async function throwIfResNotOk(res: Response) {
   if (!res.ok) {
@@ -19,7 +19,7 @@ export async function apiRequest(
     : `${API_BASE_URL}${url.startsWith('/') ? url : `/${url}`}`;
   
   // For static deployments without a backend, we can skip actual API calls
-  if (!isBackendAvailable && import.meta.env.PROD) {
+  if (isStaticMode && import.meta.env.PROD) {
     console.log(`Static deployment - skipping API call to: ${fullUrl}`);
     // Return a mock response
     return new Response(JSON.stringify({}), {
@@ -46,7 +46,7 @@ export const getQueryFn: <T>(options: {
   ({ on401: unauthorizedBehavior }) =>
   async ({ queryKey }) => {
     // Handle static deployments without a backend
-    if (!isBackendAvailable && import.meta.env.PROD) {
+    if (isStaticMode && import.meta.env.PROD) {
       console.log(`Static deployment - skipping query for: ${queryKey[0]}`);
       return null; // Return null for static deployments
     }
