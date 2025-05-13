@@ -8,7 +8,75 @@
   <meta name="description" content="2D tower defense game against zombies" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3343885780477563" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+  <!-- Add a reference to the Tailwind CDN for backup -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            background: 'hsl(210, 33%, 10%)',
+            foreground: 'hsl(210, 40%, 98%)',
+            primary: 'hsl(25, 95%, 53%)',
+            secondary: 'hsl(210, 33%, 13%)',
+            accent: 'hsl(210, 33%, 20%)',
+            muted: 'hsl(210, 33%, 20%)',
+            border: 'hsl(210, 33%, 20%)',
+          },
+        }
+      }
+    }
+  </script>
   <style>
+    /* Critical Tailwind-like utility classes for fallback */
+    .flex { display: flex; }
+    .flex-col { flex-direction: column; }
+    .items-center { align-items: center; }
+    .justify-center { justify-content: center; }
+    .absolute { position: absolute; }
+    .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+    .z-50 { z-index: 50; }
+    .bg-black\/80 { background-color: rgba(0, 0, 0, 0.8); }
+    .max-w-md { max-width: 28rem; }
+    .w-full { width: 100%; }
+    .rounded-lg { border-radius: 0.5rem; }
+    .p-8 { padding: 2rem; }
+    .text-center { text-align: center; }
+    .text-4xl { font-size: 2.25rem; }
+    .font-bold { font-weight: 700; }
+    .text-red-500 { color: rgb(239, 68, 68); }
+    .mb-2 { margin-bottom: 0.5rem; }
+    .text-gray-300 { color: rgb(209, 213, 219); }
+    .mb-6 { margin-bottom: 1.5rem; }
+    .mb-8 { margin-bottom: 2rem; }
+    .bg-gray-800 { background-color: rgb(31, 41, 55); }
+    .p-6 { padding: 1.5rem; }
+    .text-2xl { font-size: 1.5rem; }
+    .font-semibold { font-weight: 600; }
+    .text-white { color: rgb(255, 255, 255); }
+    .text-5xl { font-size: 3rem; }
+    .text-yellow-400 { color: rgb(250, 204, 21); }
+    .text-green-400 { color: rgb(74, 222, 128); }
+    .text-sm { font-size: 0.875rem; }
+    .text-gray-400 { color: rgb(156, 163, 175); }
+    .mt-1 { margin-top: 0.25rem; }
+    .mt-4 { margin-top: 1rem; }
+    .pt-4 { padding-top: 1rem; }
+    .border-t { border-top-width: 1px; }
+    .border-gray-700 { border-color: rgb(55, 65, 81); }
+    .bg-blue-600 { background-color: rgb(37, 99, 235); }
+    .hover\:bg-blue-700:hover { background-color: rgb(29, 78, 216); }
+    .bg-orange-600 { background-color: rgb(234, 88, 12); }
+    .hover\:bg-orange-700:hover { background-color: rgb(194, 65, 12); }
+    .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+    .px-8 { padding-left: 2rem; padding-right: 2rem; }
+    .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .text-xl { font-size: 1.25rem; }
+    .transition { transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
+    .gap-4 { gap: 1rem; }
+    .sm\:flex-row { flex-direction: row; }
+    @media (min-width: 640px) { .sm\:flex-row { flex-direction: row; } }
+
     /* Inline CSS variables to prevent Tailwind issues */
     :root {
       --background: 210 33% 10%;

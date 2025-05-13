@@ -29,11 +29,37 @@ fs.copyFileSync(
   path.join(__dirname, 'client/vite.config.js')
 );
 
+fs.copyFileSync(
+  path.join(__dirname, 'client/src/main.vercel.tsx'),
+  path.join(__dirname, 'client/src/main.tsx')
+);
+
+// Create Tailwind styles directory if it doesn't exist
+if (!fs.existsSync(path.join(__dirname, 'client/src/styles'))) {
+  fs.mkdirSync(path.join(__dirname, 'client/src/styles'), { recursive: true });
+}
+
+// Copy the direct Tailwind config
+fs.copyFileSync(
+  path.join(__dirname, 'client/tailwind.config.direct.js'),
+  path.join(__dirname, 'client/tailwind.config.js')
+);
+
+// Run Tailwind CSS build directly
+console.log('🎨 Building Tailwind CSS...');
+try {
+  process.chdir(path.join(__dirname, 'client'));
+  execSync('npx tailwindcss -i ./src/index.css -o ./src/styles/main.css', { stdio: 'inherit' });
+  console.log('✅ Tailwind CSS built successfully');
+} catch (error) {
+  console.error('❌ Tailwind CSS build failed:', error);
+  // Continue anyway as we have the CDN fallback
+}
+
 // Run the proper Vite build
 console.log('🔨 Building frontend with Vite...');
 try {
-  // Change to client directory and build
-  process.chdir(path.join(__dirname, 'client'));
+  // Already in client directory
   execSync('npm install', { stdio: 'inherit' });
   execSync('npm run build', { stdio: 'inherit' });
   console.log('✅ Vite build completed successfully');
