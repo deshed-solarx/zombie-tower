@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import PermanentUpgradesScreen from './PermanentUpgradesScreen';
+import LeaderboardScreen from './LeaderboardScreen';
 import PlayerDataService from '../services/PlayerDataService';
+import LeaderboardService from '../services/LeaderboardService';
 
 interface StartScreenProps {
   onStart: () => void;
@@ -9,20 +11,27 @@ interface StartScreenProps {
 
 const StartScreen = ({ onStart }: StartScreenProps) => {
   const [showUpgrades, setShowUpgrades] = useState(false);
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [playerCoins, setPlayerCoins] = useState<number | null>(null);
+  const [leaderboardEnabled, setLeaderboardEnabled] = useState(false);
   
-  // Load player coins when component mounts or when upgrades screen closes
+  // Load player coins and check leaderboard availability when component mounts
   useEffect(() => {
-    const loadPlayerCoins = async () => {
+    const loadPlayerData = async () => {
       try {
+        // Load player coins
         const playerData = await PlayerDataService.getPlayerData();
         setPlayerCoins(playerData.coins);
+        
+        // Check if leaderboard is available
+        const isLeaderboardEnabled = await LeaderboardService.refreshAvailability();
+        setLeaderboardEnabled(isLeaderboardEnabled);
       } catch (error) {
-        console.error('Failed to load player coins:', error);
+        console.error('Failed to load player data:', error);
       }
     };
     
-    loadPlayerCoins();
+    loadPlayerData();
   }, []);
   
   return (
@@ -67,6 +76,15 @@ const StartScreen = ({ onStart }: StartScreenProps) => {
           >
             Upgrades
           </Button>
+          
+          {leaderboardEnabled && (
+            <Button
+              onClick={() => setShowLeaderboard(true)}
+              className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg text-xl font-bold transition flex items-center justify-center"
+            >
+              Leaderboard
+            </Button>
+          )}
         </div>
         
         <div className="flex justify-center">
@@ -89,6 +107,12 @@ const StartScreen = ({ onStart }: StartScreenProps) => {
               setPlayerCoins(data.coins);
             });
           }} 
+        />
+      )}
+
+      {showLeaderboard && (
+        <LeaderboardScreen 
+          onClose={() => setShowLeaderboard(false)} 
         />
       )}
     </div>

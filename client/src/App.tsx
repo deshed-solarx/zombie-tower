@@ -4,11 +4,13 @@ import StartScreen from "./components/StartScreen";
 import GameOverScreen from "./components/GameOverScreen";
 import { useGame } from "./lib/stores/useGame";
 import PlayerDataService from "./services/PlayerDataService";
+import LeaderboardService from "./services/LeaderboardService";
 
 function App() {
   const { phase, start, restart, end } = useGame();
   const [score, setScore] = useState(0);
   const [coins, setCoins] = useState(0);
+  const [currentWave, setCurrentWave] = useState(1);
   
   // Create stable callback functions that won't change on each render
   const handleGameOver = useCallback(async () => {
@@ -34,6 +36,27 @@ function App() {
         }
       }
       
+      // Try to submit score to leaderboard
+      try {
+        const playerData = await PlayerDataService.getPlayerData();
+        // Submit to leaderboard if available
+        if (score > 0) {
+          LeaderboardService.submitScore(
+            playerData.displayName,
+            score, 
+            currentWave
+          ).then(success => {
+            if (success) {
+              console.log('Score submitted to leaderboard successfully');
+            }
+          }).catch(err => {
+            console.log('Leaderboard submission error (non-critical):', err);
+          });
+        }
+      } catch (error) {
+        console.log('Failed to submit score to leaderboard (non-critical)');
+      }
+      
       // Force a small delay before state change to prevent React state conflicts
       setTimeout(() => {
         end();
@@ -49,6 +72,12 @@ function App() {
   const handleScoreUpdate = useCallback((newScore: number) => {
     if (typeof newScore === 'number' && isFinite(newScore)) {
       setScore(newScore);
+    }
+  }, []);
+  
+  const handleWaveUpdate = useCallback((wave: number) => {
+    if (typeof wave === 'number' && isFinite(wave)) {
+      setCurrentWave(wave);
     }
   }, []);
   
@@ -85,6 +114,7 @@ function App() {
         isActive={phase === "playing"} 
         onGameOver={handleGameOver}
         onScoreUpdate={handleScoreUpdate}
+        onWaveUpdate={handleWaveUpdate}
       />
       
       {phase === "ended" && (
