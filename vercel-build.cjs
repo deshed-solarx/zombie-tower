@@ -20,13 +20,13 @@ fs.copyFileSync(
 );
 
 fs.copyFileSync(
-  path.join(__dirname, 'client/postcss.config.vercel.js'),
-  path.join(__dirname, 'client/postcss.config.js')
+  path.join(__dirname, 'client/postcss.config.vercel.cjs'),
+  path.join(__dirname, 'client/postcss.config.cjs')
 );
 
 fs.copyFileSync(
-  path.join(__dirname, 'client/vite.config.vercel.js'),
-  path.join(__dirname, 'client/vite.config.js')
+  path.join(__dirname, 'client/vite.config.vercel.cjs'),
+  path.join(__dirname, 'client/vite.config.cjs')
 );
 
 fs.copyFileSync(
@@ -61,7 +61,7 @@ console.log('🔨 Building frontend with Vite...');
 try {
   // Already in client directory
   execSync('npm install', { stdio: 'inherit' });
-  execSync('npm run build', { stdio: 'inherit' });
+  execSync('npm run build:vercel', { stdio: 'inherit' });
   console.log('✅ Vite build completed successfully');
 } catch (error) {
   console.error('❌ Vite build failed:', error);
