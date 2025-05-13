@@ -58,6 +58,7 @@ try {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta name="google-adsense-account" content="ca-pub-3343885780477563">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zombie Tower Defense</title>
