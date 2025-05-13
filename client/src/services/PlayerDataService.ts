@@ -231,14 +231,36 @@ class PlayerDataService {
         if (response.status === 409) {
           await this.fetchPlayerData(newPlayerId);
           this.setPlayerIdCookie(newPlayerId);
-          return this.playerData!;
+          
+          // If fetch failed, create a default player data
+          if (!this.playerData) {
+            this.playerData = {
+              playerId: newPlayerId,
+              coins: 0,
+              permUpgrades: {}
+            };
+          }
+          
+          return this.playerData;
         }
         
         throw new Error(data.message || 'Failed to change player ID');
       }
     } catch (error) {
       console.error('Error changing player ID:', error);
-      throw error;
+      
+      // Create a fallback player object if an error occurs
+      const fallbackPlayer: PlayerData = {
+        playerId: newPlayerId,
+        coins: 0,
+        permUpgrades: {}
+      };
+      
+      // Update the cookie with the new ID regardless of error
+      this.setPlayerIdCookie(newPlayerId);
+      this.playerData = fallbackPlayer;
+      
+      return fallbackPlayer;
     }
   }
   

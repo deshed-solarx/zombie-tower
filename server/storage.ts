@@ -26,57 +26,91 @@ export interface IStorage {
 export class PostgresStorage implements IStorage {
   // User methods
   async getUser(id: number): Promise<User | undefined> {
-    const result = await db.select().from(users).where({ id }).limit(1);
-    return result[0];
+    try {
+      const result = await db.select().from(users).limit(1);
+      return result[0];
+    } catch (error) {
+      console.error('Database error in getUser:', error);
+      return undefined;
+    }
   }
 
   async getUserByUsername(username: string): Promise<User | undefined> {
-    const result = await db.select().from(users).where({ username }).limit(1);
-    return result[0];
+    try {
+      const result = await db.select().from(users).limit(1);
+      return result.find(user => user.username === username);
+    } catch (error) {
+      console.error('Database error in getUserByUsername:', error);
+      return undefined;
+    }
   }
 
   async createUser(insertUser: InsertUser): Promise<User> {
-    const result = await db.insert(users).values(insertUser).returning();
-    return result[0];
+    try {
+      const result = await db.insert(users).values(insertUser).returning();
+      return result[0];
+    } catch (error) {
+      console.error('Database error in createUser:', error);
+      throw error;
+    }
   }
   
   // Player methods
   async getPlayerById(playerId: string): Promise<Player | undefined> {
-    const result = await db.select().from(players).where({ playerId }).limit(1);
-    return result[0];
+    try {
+      const result = await db.select().from(players);
+      return result.find(player => player.playerId === playerId);
+    } catch (error) {
+      console.error('Database error in getPlayerById:', error);
+      return undefined;
+    }
   }
   
   async createPlayer(playerData?: Partial<InsertPlayer>): Promise<Player> {
-    const now = new Date().toISOString();
-    const newPlayerId = playerData?.playerId || uuidv4();
-    
-    const newPlayer: InsertPlayer = {
-      playerId: newPlayerId,
-      displayName: playerData?.displayName || `Player_${newPlayerId.substr(0, 6)}`,
-      coins: playerData?.coins || 0,
-      permUpgrades: playerData?.permUpgrades || {},
-      lastSeen: now,
-      createdAt: now
-    };
-    
-    const result = await db.insert(players).values(newPlayer).returning();
-    return result[0];
+    try {
+      const now = new Date().toISOString();
+      const newPlayerId = playerData?.playerId || uuidv4();
+      
+      const newPlayer: InsertPlayer = {
+        playerId: newPlayerId,
+        displayName: playerData?.displayName || `Player_${newPlayerId.substr(0, 6)}`,
+        coins: playerData?.coins || 0,
+        permUpgrades: playerData?.permUpgrades || {},
+        lastSeen: now,
+        createdAt: now
+      };
+      
+      const result = await db.insert(players).values(newPlayer).returning();
+      return result[0];
+    } catch (error) {
+      console.error('Database error in createPlayer:', error);
+      throw error;
+    }
   }
   
   async updatePlayer(playerId: string, data: Partial<Omit<InsertPlayer, "playerId">>): Promise<Player | undefined> {
-    // Always update lastSeen when updating player
-    const updateData = {
-      ...data,
-      lastSeen: new Date().toISOString()
-    };
-    
-    const result = await db
-      .update(players)
-      .set(updateData)
-      .where({ playerId })
-      .returning();
+    try {
+      // Always update lastSeen when updating player
+      const updateData = {
+        ...data,
+        lastSeen: new Date().toISOString()
+      };
       
-    return result[0];
+      // First, get the player to update
+      const playerToUpdate = await this.getPlayerById(playerId);
+      if (!playerToUpdate) return undefined;
+      
+      // Then update the player
+      const result = await db.update(players)
+        .set(updateData)
+        .returning();
+      
+      // Find and return the updated player
+      return result.find(player => player.playerId === playerId);
+    } catch (error) {
+      console.error('Database error in updatePlayer:', error);
+      return undefined;
+    }
   }
   
   async getAllPlayers(): Promise<Player[]> {
