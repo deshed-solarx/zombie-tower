@@ -20,14 +20,15 @@ function App() {
       // Update player's coins in the database
       if (coinsEarned > 0) {
         try {
-          // Load current player data
-          const playerData = await PlayerDataService.getPlayerData();
-          
           // Update coins
-          const updatedPlayer = await PlayerDataService.updateCoins(coinsEarned);
-          setCoins(updatedPlayer.coins);
-          
-          console.log(`Earned ${coinsEarned} coins, new total: ${updatedPlayer.coins}`);
+          await PlayerDataService.updateCoins(coinsEarned)
+            .then(updatedPlayerData => {
+              setCoins(updatedPlayerData.coins);
+              console.log(`Earned ${coinsEarned} coins, new total: ${updatedPlayerData.coins}`);
+            })
+            .catch(err => {
+              console.error('Error updating coins:', err);
+            });
         } catch (error) {
           console.error('Failed to update coins:', error);
         }

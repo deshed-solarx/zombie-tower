@@ -91,19 +91,35 @@ class PlayerDataService {
   // Fetch player data from API
   private async fetchPlayerData(playerId: string): Promise<void> {
     try {
-      const response = await fetch(`${API_URL}?playerId=${playerId}`);
+      console.log(`Fetching player data for ID: ${playerId}`);
+      const apiUrl = `${API_URL}?playerId=${playerId}`;
+      console.log(`API URL: ${apiUrl}`);
+      
+      const response = await fetch(apiUrl);
       
       if (!response.ok) {
+        console.error(`API response not OK: ${response.status} ${response.statusText}`);
         throw new Error(`API error: ${response.status}`);
       }
       
-      const data = await response.json();
+      // Log raw response for debugging
+      const responseText = await response.text();
+      console.log('Raw API response:', responseText);
       
-      if (data.success) {
-        this.playerData = data.player;
-        console.log('Player data loaded:', this.playerData);
-      } else {
-        throw new Error(data.message || 'Failed to load player data');
+      try {
+        // Parse the response text manually
+        const data = JSON.parse(responseText);
+        
+        if (data.success) {
+          this.playerData = data.player;
+          console.log('Player data loaded successfully:', this.playerData);
+        } else {
+          console.error('API returned success=false:', data);
+          throw new Error(data.message || 'Failed to load player data');
+        }
+      } catch (parseError) {
+        console.error('Error parsing API response as JSON:', parseError);
+        throw new Error('Invalid JSON response from API');
       }
     } catch (error) {
       console.error('Error fetching player data:', error);
@@ -275,12 +291,12 @@ class PlayerDataService {
   }
   
   // Update coins
-  public async updateCoins(amount: number): Promise<number> {
+  public async updateCoins(amount: number): Promise<PlayerData> {
     const currentCoins = this.getCoins();
     const newCoins = Math.max(0, currentCoins + amount);
     
-    await this.updatePlayerData({ coins: newCoins });
-    return newCoins;
+    const updatedPlayer = await this.updatePlayerData({ coins: newCoins });
+    return updatedPlayer;
   }
   
   // Set a specific perm upgrade
