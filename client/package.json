@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tailwindcss -i ./src/index.css -o ./src/styles/main.css && vite build",
-    "build:vercel": "tailwindcss -i ./src/index.css -o ./src/styles/main.css && node --require=./vite.config.cjs build",
+    "build:vercel": "cross-env NODE_ENV=production tailwindcss --config ./tailwind.config.vercel.js -i ./src/index.css -o ./src/styles/main.css && vite --config ./vite.config.cjs build",
     "preview": "vite preview"
   },
   "dependencies": {

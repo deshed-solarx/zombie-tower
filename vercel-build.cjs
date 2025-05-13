@@ -41,8 +41,8 @@ if (!fs.existsSync(path.join(__dirname, 'client/src/styles'))) {
 
 // Copy the direct Tailwind config
 fs.copyFileSync(
-  path.join(__dirname, 'client/tailwind.config.direct.js'),
-  path.join(__dirname, 'client/tailwind.config.js')
+  path.join(__dirname, 'client/tailwind.config.vercel.cjs'),
+  path.join(__dirname, 'client/tailwind.config.cjs')
 );
 
 // Run Tailwind CSS build directly
