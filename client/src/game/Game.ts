@@ -216,6 +216,7 @@ export class Game {
   // Dev menu settings
   private devMenuOpen: boolean = false;
   private showHitboxes: boolean = false;
+  private playerDataService: any = null; // Will be loaded dynamically
   
   private setupEventListeners(): void {
     // Mouse click handler
@@ -226,6 +227,14 @@ export class Game {
     
     // Keyboard handler for developer menu
     window.addEventListener('keydown', this.handleKeyDown);
+    
+    // Load PlayerDataService dynamically to avoid circular dependencies
+    import('../services/PlayerDataService').then(module => {
+      this.playerDataService = module.default;
+      debug('Game', 'PlayerDataService loaded');
+    }).catch(err => {
+      debug('Game', 'Failed to load PlayerDataService', err);
+    });
     
     // Listen for ranged zombie attacks
     window.addEventListener('zombie:ranged-attack', this.handleRangedZombieAttack as EventListener);
@@ -537,6 +546,8 @@ export class Game {
     menuContainer.style.zIndex = '1000';
     menuContainer.style.fontFamily = 'Arial, sans-serif';
     menuContainer.style.fontSize = '14px';
+    menuContainer.style.maxHeight = '80vh';
+    menuContainer.style.overflowY = 'auto';
     
     // Create title
     const title = document.createElement('h3');
@@ -722,6 +733,162 @@ export class Game {
     hitboxDiv.appendChild(hitboxCheckbox);
     
     menuContainer.appendChild(hitboxDiv);
+    
+    // Add player data controls if PlayerDataService is loaded
+    if (this.playerDataService) {
+      const playerDataDiv = document.createElement('div');
+      playerDataDiv.style.marginBottom = '15px';
+      playerDataDiv.style.borderTop = '1px solid #444';
+      playerDataDiv.style.paddingTop = '10px';
+      
+      const playerDataTitle = document.createElement('h4');
+      playerDataTitle.textContent = 'Player Data';
+      playerDataTitle.style.margin = '0 0 8px 0';
+      playerDataTitle.style.color = '#66ccff';
+      playerDataDiv.appendChild(playerDataTitle);
+      
+      // Player ID display and change field
+      const playerIdDiv = document.createElement('div');
+      playerIdDiv.style.marginBottom = '8px';
+      
+      // Get current player ID
+      const currentPlayerId = this.playerDataService.getPlayerId() || 'Loading...';
+      
+      const playerIdLabel = document.createElement('div');
+      playerIdLabel.innerHTML = `Current ID: <span style="color:#66ccff;font-family:monospace;font-size:12px">${currentPlayerId}</span>`;
+      playerIdLabel.style.marginBottom = '5px';
+      playerIdDiv.appendChild(playerIdLabel);
+      
+      const playerIdInput = document.createElement('input');
+      playerIdInput.type = 'text';
+      playerIdInput.placeholder = 'New Player ID';
+      playerIdInput.style.width = '140px';
+      playerIdInput.style.marginRight = '5px';
+      playerIdDiv.appendChild(playerIdInput);
+      
+      const changeIdButton = document.createElement('button');
+      changeIdButton.textContent = 'Change ID';
+      changeIdButton.onclick = async () => {
+        const newId = playerIdInput.value.trim();
+        if (newId) {
+          try {
+            debug('DevMenu', `Changing player ID to: ${newId}`);
+            await this.playerDataService.changePlayerId(newId);
+            
+            // Update the display with new ID
+            playerIdLabel.innerHTML = `Current ID: <span style="color:#66ccff;font-family:monospace;font-size:12px">${newId}</span>`;
+            playerIdInput.value = '';
+            
+            // Show success message
+            const successMsg = document.createElement('div');
+            successMsg.textContent = 'Player ID changed successfully!';
+            successMsg.style.color = '#4CAF50';
+            successMsg.style.fontSize = '12px';
+            successMsg.style.marginTop = '5px';
+            playerIdDiv.appendChild(successMsg);
+            
+            // Remove success message after 3 seconds
+            setTimeout(() => {
+              if (successMsg.parentNode === playerIdDiv) {
+                playerIdDiv.removeChild(successMsg);
+              }
+            }, 3000);
+          } catch (error) {
+            console.error('Failed to change player ID:', error);
+            
+            // Show error message
+            const errorMsg = document.createElement('div');
+            errorMsg.textContent = 'Failed to change player ID';
+            errorMsg.style.color = '#f44336';
+            errorMsg.style.fontSize = '12px';
+            errorMsg.style.marginTop = '5px';
+            playerIdDiv.appendChild(errorMsg);
+            
+            // Remove error message after 3 seconds
+            setTimeout(() => {
+              if (errorMsg.parentNode === playerIdDiv) {
+                playerIdDiv.removeChild(errorMsg);
+              }
+            }, 3000);
+          }
+        }
+      };
+      playerIdDiv.appendChild(changeIdButton);
+      playerDataDiv.appendChild(playerIdDiv);
+      
+      // Generate new random ID button
+      const newRandomIdButton = document.createElement('button');
+      newRandomIdButton.textContent = 'Generate Random ID';
+      newRandomIdButton.style.marginBottom = '10px';
+      newRandomIdButton.onclick = async () => {
+        try {
+          // Load uuid dynamically
+          const { v4: uuidv4 } = await import('uuid');
+          const randomId = uuidv4();
+          playerIdInput.value = randomId;
+        } catch (error) {
+          console.error('Failed to generate UUID:', error);
+          playerIdInput.value = 'player_' + Math.random().toString(36).substring(2, 10);
+        }
+      };
+      playerDataDiv.appendChild(newRandomIdButton);
+      
+      // Coins display
+      const coinsDisplayDiv = document.createElement('div');
+      coinsDisplayDiv.style.marginBottom = '8px';
+      
+      const updateCoinsDisplay = () => {
+        const currentCoins = this.playerDataService.getCoins();
+        coinsDisplayDiv.innerHTML = `Coins: <span style="color:#ffcc00;font-weight:bold">${currentCoins}</span>`;
+      };
+      
+      // Initial display
+      updateCoinsDisplay();
+      
+      // Add coin controls
+      const coinControlDiv = document.createElement('div');
+      coinControlDiv.style.display = 'flex';
+      coinControlDiv.style.alignItems = 'center';
+      coinControlDiv.style.marginBottom = '8px';
+      
+      const coinInput = document.createElement('input');
+      coinInput.type = 'number';
+      coinInput.min = '0';
+      coinInput.placeholder = 'Amount';
+      coinInput.style.width = '80px';
+      coinInput.style.marginRight = '5px';
+      coinControlDiv.appendChild(coinInput);
+      
+      const addCoinsButton = document.createElement('button');
+      addCoinsButton.textContent = 'Add';
+      addCoinsButton.style.marginRight = '5px';
+      addCoinsButton.onclick = async () => {
+        const amount = parseInt(coinInput.value);
+        if (!isNaN(amount) && amount > 0) {
+          await this.playerDataService.updateCoins(amount);
+          updateCoinsDisplay();
+          coinInput.value = '';
+        }
+      };
+      coinControlDiv.appendChild(addCoinsButton);
+      
+      const removeCoinsButton = document.createElement('button');
+      removeCoinsButton.textContent = 'Remove';
+      removeCoinsButton.onclick = async () => {
+        const amount = parseInt(coinInput.value);
+        if (!isNaN(amount) && amount > 0) {
+          await this.playerDataService.updateCoins(-amount);
+          updateCoinsDisplay();
+          coinInput.value = '';
+        }
+      };
+      coinControlDiv.appendChild(removeCoinsButton);
+      
+      playerDataDiv.appendChild(coinsDisplayDiv);
+      playerDataDiv.appendChild(coinControlDiv);
+      
+      menuContainer.appendChild(playerDataDiv);
+    }
     
     // Add close button
     const closeButton = document.createElement('button');
