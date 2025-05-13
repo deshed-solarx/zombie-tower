@@ -20,12 +20,22 @@ const GameOverScreen = ({ score, onRestart }: GameOverScreenProps) => {
           <p className="text-5xl font-bold text-yellow-400">{score}</p>
         </div>
         
-        <Button 
-          onClick={onRestart}
-          className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-8 rounded-lg text-xl font-bold transition"
-        >
-          Play Again
-        </Button>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button 
+            onClick={onRestart}
+            className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-8 rounded-lg text-xl font-bold transition"
+          >
+            Play Again
+          </Button>
+          
+          <a 
+            href="/support.html" 
+            target="_blank" 
+            className="bg-orange-600 hover:bg-orange-700 text-white py-3 px-6 rounded-lg text-xl font-bold transition flex items-center justify-center"
+          >
+            Support Game
+          </a>
+        </div>
       </div>
     </div>
   );

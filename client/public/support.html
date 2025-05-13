@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support Zombie Tower Defense</title>
+  <meta name="description" content="Support the Zombie Tower Defense game by viewing an ad" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #0f172a;
+      color: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+    .container {
+      max-width: 800px;
+      padding: 2rem;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #f97316;
+    }
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+    .button {
+      display: inline-block;
+      background-color: #3b82f6;
+      color: white;
+      font-weight: bold;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      margin: 1rem;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .button:hover {
+      background-color: #2563eb;
+    }
+    .thank-you {
+      display: none;
+      background-color: #166534;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    #ad-container {
+      width: 100%;
+      max-width: 728px;
+      margin: 2rem auto;
+      min-height: 90px;
+      background-color: #1e293b;
+      border-radius: 0.5rem;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+  </style>
+  <meta name="google-adsense-account" content="ca-pub-3343885780477563">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3343885780477563" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Support Zombie Tower Defense</h1>
+    <p>Your support helps us continue developing and improving the game. Click the button below to view an advertisement and support us!</p>
+    
+    <button id="support-button" class="button">Support with Ad</button>
+    <a href="/" class="button">Return to Game</a>
+    
+    <div id="ad-container">
+      <!-- Ad will be loaded here -->
+      <!-- Ad unit code - you'll need to create an ad unit in your AdSense account and update the ad-slot value -->
+      <!-- Note: Replace the ad-slot value "1234567890" with your actual ad slot ID when available -->
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-3343885780477563"
+           data-ad-slot="1234567890"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
+    
+    <div id="thank-you" class="thank-you">
+      <h2>Thank you for your support!</h2>
+      <p>Your contribution helps us keep developing new features and improvements for Zombie Tower Defense.</p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const supportButton = document.getElementById('support-button');
+      const adContainer = document.getElementById('ad-container');
+      const thankYouMessage = document.getElementById('thank-you');
+      
+      supportButton.addEventListener('click', function() {
+        // Show the ad container
+        adContainer.style.display = 'flex';
+        supportButton.disabled = true;
+        supportButton.style.opacity = '0.5';
+        supportButton.textContent = 'Loading Advertisement...';
+        
+        // Load Google ad
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        
+        // After a short delay, show thank you message (simulating ad view completion)
+        setTimeout(function() {
+          thankYouMessage.style.display = 'block';
+          supportButton.textContent = 'Thank You!';
+          supportButton.style.backgroundColor = '#166534';
+          
+          // In a real implementation, you would track the ad impression/click here
+          console.log('Ad support recorded');
+        }, 3000);
+      });
+    });
+  </script>
+</body>
+</html>
