@@ -1,0 +1,90 @@
+[14:16:19.107] Running build in Washington, D.C., USA (East) – iad1
+[14:16:19.107] Build machine configuration: 2 cores, 8 GB
+[14:16:19.124] Cloning github.com/V01dNullified/Tower3 (Branch: main, Commit: d0a90f3)
+[14:16:19.591] Cloning completed: 467.000ms
+[14:16:21.852] Restored build cache from previous deployment (46LP6oUUPXH29erYkc4npZn72KtF)
+[14:16:22.635] Running "vercel build"
+[14:16:23.015] Vercel CLI 41.7.3
+[14:16:24.929] Running "install" command: `npm install`...
+[14:16:27.850] 
+[14:16:27.851] added 1 package, and audited 612 packages in 3s
+[14:16:27.852] 
+[14:16:27.852] 84 packages are looking for funding
+[14:16:27.853]   run `npm fund` for details
+[14:16:27.889] 
+[14:16:27.890] 11 moderate severity vulnerabilities
+[14:16:27.890] 
+[14:16:27.890] To address issues that do not require attention, run:
+[14:16:27.890]   npm audit fix
+[14:16:27.891] 
+[14:16:27.891] To address all issues (including breaking changes), run:
+[14:16:27.891]   npm audit fix --force
+[14:16:27.891] 
+[14:16:27.891] Run `npm audit` for details.
+[14:16:28.240] 🚀 Starting Vercel build process...
+[14:16:28.240] 📁 Creating output directory...
+[14:16:28.241] 📝 Configuring Vercel-specific files...
+[14:16:28.246] 🎨 Building Tailwind CSS...
+[14:16:29.197] 
+[14:16:29.198] Rebuilding...
+[14:16:30.043] 
+[14:16:30.043] Done in 892ms.
+[14:16:30.060] ✅ Tailwind CSS built successfully
+[14:16:30.060] 🔨 Building frontend with Vite...
+[14:16:30.917] 
+[14:16:30.918] up to date, audited 178 packages in 787ms
+[14:16:30.919] 
+[14:16:30.919] 37 packages are looking for funding
+[14:16:30.919]   run `npm fund` for details
+[14:16:30.933] 
+[14:16:30.933] 2 moderate severity vulnerabilities
+[14:16:30.933] 
+[14:16:30.933] To address all issues (including breaking changes), run:
+[14:16:30.933]   npm audit fix --force
+[14:16:30.934] 
+[14:16:30.934] Run `npm audit` for details.
+[14:16:31.058] 
+[14:16:31.059] > zombie-tower-defense-client@1.0.0 build
+[14:16:31.059] > tailwindcss -i ./src/index.css -o ./src/styles/main.css && vite build
+[14:16:31.059] 
+[14:16:31.496] 
+[14:16:31.497] Rebuilding...
+[14:16:32.198] 
+[14:16:32.199] Done in 753ms.
+[14:16:32.497] [36mvite v5.4.19 [32mbuilding for production...[36m[39m
+[14:16:32.541] node:internal/process/promises:394
+[14:16:32.541]     triggerUncaughtException(err, true /* fromPromise */);
+[14:16:32.541]     ^
+[14:16:32.541] 
+[14:16:32.541] [Failed to load PostCSS config: Failed to load PostCSS config (searchPath: /vercel/path0/client): [ReferenceError] module is not defined in ES module scope
+[14:16:32.541] This file is being treated as an ES module because it has a '.js' file extension and '/vercel/path0/client/package.json' contains "type": "module". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+[14:16:32.541] ReferenceError: module is not defined in ES module scope
+[14:16:32.542] This file is being treated as an ES module because it has a '.js' file extension and '/vercel/path0/client/package.json' contains "type": "module". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+[14:16:32.542]     at file:///vercel/path0/client/postcss.config.js:1:1
+[14:16:32.542]     at ModuleJob.run (node:internal/modules/esm/module_job:274:25)
+[14:16:32.542]     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)
+[14:16:32.542]     at async importDefault (file:///vercel/path0/client/node_modules/vite/dist/node/chunks/dep-C6uTJdX2.js:33759:18)
+[14:16:32.542]     at async Object.search (file:///vercel/path0/client/node_modules/vite/dist/node/chunks/dep-C6uTJdX2.js:25915:23)]
+[14:16:32.542] 
+[14:16:32.542] Node.js v22.15.0
+[14:16:32.554] ❌ Vite build failed: Error: Command failed: npm run build
+[14:16:32.554]     at genericNodeError (node:internal/errors:983:15)
+[14:16:32.555]     at wrappedFn (node:internal/errors:537:14)
+[14:16:32.555]     at checkExecSyncError (node:child_process:882:11)
+[14:16:32.555]     at execSync (node:child_process:954:15)
+[14:16:32.559]     at Object.<anonymous> (/vercel/path0/vercel-build.cjs:64:3)
+[14:16:32.559]     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+[14:16:32.560]     at Object..js (node:internal/modules/cjs/loader:1895:10)
+[14:16:32.560]     at Module.load (node:internal/modules/cjs/loader:1465:32)
+[14:16:32.560]     at Function._load (node:internal/modules/cjs/loader:1282:12)
+[14:16:32.560]     at TracingChannel.traceSync (node:diagnostics_channel:322:14) {
+[14:16:32.560]   status: 1,
+[14:16:32.560]   signal: null,
+[14:16:32.561]   output: [ null, null, null ],
+[14:16:32.561]   pid: 126,
+[14:16:32.561]   stdout: null,
+[14:16:32.561]   stderr: null
+[14:16:32.561] }
+[14:16:32.563] Error: Command "node vercel-build.cjs" exited with 1
+[14:16:32.950] 
+[14:16:35.951] Exiting build container

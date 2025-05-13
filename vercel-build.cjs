@@ -20,13 +20,13 @@ fs.copyFileSync(
 );
 
 fs.copyFileSync(
-  path.join(__dirname, 'client/postcss.config.vercel.js'),
-  path.join(__dirname, 'client/postcss.config.js')
+  path.join(__dirname, 'client/postcss.config.vercel.cjs'),
+  path.join(__dirname, 'client/postcss.config.cjs')
 );
 
 fs.copyFileSync(
-  path.join(__dirname, 'client/vite.config.vercel.js'),
-  path.join(__dirname, 'client/vite.config.js')
+  path.join(__dirname, 'client/vite.config.vercel.cjs'),
+  path.join(__dirname, 'client/vite.config.cjs')
 );
 
 fs.copyFileSync(
@@ -41,8 +41,8 @@ if (!fs.existsSync(path.join(__dirname, 'client/src/styles'))) {
 
 // Copy the direct Tailwind config
 fs.copyFileSync(
-  path.join(__dirname, 'client/tailwind.config.direct.js'),
-  path.join(__dirname, 'client/tailwind.config.js')
+  path.join(__dirname, 'client/tailwind.config.vercel.cjs'),
+  path.join(__dirname, 'client/tailwind.config.cjs')
 );
 
 // Run Tailwind CSS build directly
@@ -61,7 +61,7 @@ console.log('🔨 Building frontend with Vite...');
 try {
   // Already in client directory
   execSync('npm install', { stdio: 'inherit' });
-  execSync('npm run build', { stdio: 'inherit' });
+  execSync('npm run build:vercel', { stdio: 'inherit' });
   console.log('✅ Vite build completed successfully');
 } catch (error) {
   console.error('❌ Vite build failed:', error);
