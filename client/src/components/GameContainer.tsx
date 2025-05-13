@@ -9,9 +9,10 @@ interface GameContainerProps {
   isActive: boolean;
   onGameOver: () => void;
   onScoreUpdate: (score: number) => void;
+  onWaveUpdate?: (wave: number) => void;
 }
 
-const GameContainer = ({ isActive, onGameOver, onScoreUpdate }: GameContainerProps) => {
+const GameContainer = ({ isActive, onGameOver, onScoreUpdate, onWaveUpdate }: GameContainerProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const gameInstanceRef = useRef<Game | null>(null);
   

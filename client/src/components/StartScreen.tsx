@@ -109,6 +109,12 @@ const StartScreen = ({ onStart }: StartScreenProps) => {
           }} 
         />
       )}
+
+      {showLeaderboard && (
+        <LeaderboardScreen 
+          onClose={() => setShowLeaderboard(false)} 
+        />
+      )}
     </div>
   );
 };
