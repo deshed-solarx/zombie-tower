@@ -40,6 +40,15 @@ try {
       copyDirRecursive(fontsDir, destFontsDir);
     }
     
+    // Copy the index.vercel.html file to be used by Vite
+    const indexVercelHtml = path.join(__dirname, 'client/index.vercel.html');
+    const indexHtml = path.join(__dirname, 'client/index.html');
+    
+    if (fs.existsSync(indexVercelHtml)) {
+      console.log('📋 Using custom Vercel index.html...');
+      fs.copyFileSync(indexVercelHtml, indexHtml);
+    }
+    
     // Create proper PostCSS and Tailwind configs for the build
     const postcssConfig = `module.exports = {
   plugins: {
@@ -51,8 +60,8 @@ try {
 }`;
     fs.writeFileSync(path.join(__dirname, 'postcss.config.js'), postcssConfig);
     
-    // Use Vite to build the client application
-    execSync('cd client && npx vite build --outDir ../dist/public', { stdio: 'inherit' });
+    // Use Vite to build the client application with our Vercel config
+    execSync('cd client && npx vite build --config vite.config.vercel.js', { stdio: 'inherit' });
   } catch (buildError) {
     console.error('⚠️ Client build error:', buildError);
     console.log('⚠️ Building simplified version as fallback...');
