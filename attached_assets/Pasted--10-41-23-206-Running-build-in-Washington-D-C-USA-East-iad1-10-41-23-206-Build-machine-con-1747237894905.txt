@@ -1,0 +1,57 @@
+[10:41:23.206] Running build in Washington, D.C., USA (East) – iad1
+[10:41:23.206] Build machine configuration: 2 cores, 8 GB
+[10:41:23.238] Cloning github.com/V01dNullified/Tower3 (Branch: main, Commit: 1cd5635)
+[10:41:23.868] Cloning completed: 630.000ms
+[10:41:26.178] Restored build cache from previous deployment (fpFaaW6kX6zwU4oRMn3Bqsj2zr3L)
+[10:41:26.970] Running "vercel build"
+[10:41:27.529] Vercel CLI 41.7.3
+[10:41:28.934] Running "install" command: `npm install`...
+[10:41:31.685] 
+[10:41:31.686] up to date, audited 612 packages in 3s
+[10:41:31.686] 
+[10:41:31.686] 84 packages are looking for funding
+[10:41:31.687]   run `npm fund` for details
+[10:41:31.724] 
+[10:41:31.725] 11 moderate severity vulnerabilities
+[10:41:31.725] 
+[10:41:31.725] To address issues that do not require attention, run:
+[10:41:31.725]   npm audit fix
+[10:41:31.726] 
+[10:41:31.726] To address all issues (including breaking changes), run:
+[10:41:31.726]   npm audit fix --force
+[10:41:31.728] 
+[10:41:31.728] Run `npm audit` for details.
+[10:41:31.897] 🚀 Starting direct Vercel build process...
+[10:41:31.898] 📁 Creating output directory...
+[10:41:31.898] 🔨 Directly copying built files...
+[10:41:31.898] 📦 Copying client public assets...
+[10:41:31.899] ❌ Build process error: Error: EISDIR: illegal operation on a directory, copyfile '/vercel/path0/client/public/fonts' -> '/vercel/path0/dist/public/fonts'
+[10:41:31.899]     at Object.copyFileSync (node:fs:3086:11)
+[10:41:31.900]     at /vercel/path0/vercel-direct-build.cjs:27:10
+[10:41:31.900]     at Array.forEach (<anonymous>)
+[10:41:31.900]     at Object.<anonymous> (/vercel/path0/vercel-direct-build.cjs:24:11)
+[10:41:31.900]     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+[10:41:31.900]     at Object..js (node:internal/modules/cjs/loader:1895:10)
+[10:41:31.901]     at Module.load (node:internal/modules/cjs/loader:1465:32)
+[10:41:31.901]     at Function._load (node:internal/modules/cjs/loader:1282:12)
+[10:41:31.901]     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+[10:41:31.901]     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+[10:41:31.902]   errno: -21,
+[10:41:31.902]   code: 'EISDIR',
+[10:41:31.902]   syscall: 'copyfile',
+[10:41:31.902]   path: '/vercel/path0/client/public/fonts',
+[10:41:31.902]   dest: '/vercel/path0/dist/public/fonts'
+[10:41:31.902] }
+[10:41:31.926] Installing dependencies...
+[10:41:32.885] 
+[10:41:32.886] up to date in 897ms
+[10:41:32.886] 
+[10:41:32.886] 84 packages are looking for funding
+[10:41:32.887]   run `npm fund` for details
+[10:41:33.268] Build Completed in /vercel/output [4s]
+[10:41:33.302] Deploying outputs...
+[10:41:37.509] 
+[10:41:37.803] Deployment completed
+[10:42:46.905] Uploading build cache [140.82 MB]...
+[10:42:49.351] Build cache uploaded: 2.451s
+[10:42:51.613] Exiting build container
