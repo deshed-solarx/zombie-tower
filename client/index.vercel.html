@@ -1,85 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="google-adsense-account" content="ca-pub-3343885780477563">
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Zombie Tower Defense</title>
   <meta name="description" content="2D tower defense game against zombies" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3343885780477563" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
   <!-- Include built Tailwind CSS -->
-  <link rel="stylesheet" href="/src/styles/main.css" />
-  <!-- Add a reference to the Tailwind CDN for backup -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            background: 'hsl(210, 33%, 10%)',
-            foreground: 'hsl(210, 40%, 98%)',
-            primary: 'hsl(25, 95%, 53%)',
-            secondary: 'hsl(210, 33%, 13%)',
-            accent: 'hsl(210, 33%, 20%)',
-            muted: 'hsl(210, 33%, 20%)',
-            border: 'hsl(210, 33%, 20%)',
-          },
-        }
-      }
-    }
-  </script>
+  <link rel="stylesheet" href="./assets/index.css" />
   <style>
-    /* Critical Tailwind-like utility classes for fallback */
-    .flex { display: flex; }
-    .flex-col { flex-direction: column; }
-    .items-center { align-items: center; }
-    .justify-center { justify-content: center; }
-    .absolute { position: absolute; }
-    .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
-    .z-50 { z-index: 50; }
-    .bg-black\/80 { background-color: rgba(0, 0, 0, 0.8); }
-    .max-w-md { max-width: 28rem; }
-    .w-full { width: 100%; }
-    .rounded-lg { border-radius: 0.5rem; }
-    .p-8 { padding: 2rem; }
-    .text-center { text-align: center; }
-    .text-4xl { font-size: 2.25rem; }
-    .font-bold { font-weight: 700; }
-    .text-red-500 { color: rgb(239, 68, 68); }
-    .mb-2 { margin-bottom: 0.5rem; }
-    .text-gray-300 { color: rgb(209, 213, 219); }
-    .mb-6 { margin-bottom: 1.5rem; }
-    .mb-8 { margin-bottom: 2rem; }
-    .bg-gray-800 { background-color: rgb(31, 41, 55); }
-    .p-6 { padding: 1.5rem; }
-    .text-2xl { font-size: 1.5rem; }
-    .font-semibold { font-weight: 600; }
-    .text-white { color: rgb(255, 255, 255); }
-    .text-5xl { font-size: 3rem; }
-    .text-yellow-400 { color: rgb(250, 204, 21); }
-    .text-green-400 { color: rgb(74, 222, 128); }
-    .text-sm { font-size: 0.875rem; }
-    .text-gray-400 { color: rgb(156, 163, 175); }
-    .mt-1 { margin-top: 0.25rem; }
-    .mt-4 { margin-top: 1rem; }
-    .pt-4 { padding-top: 1rem; }
-    .border-t { border-top-width: 1px; }
-    .border-gray-700 { border-color: rgb(55, 65, 81); }
-    .bg-blue-600 { background-color: rgb(37, 99, 235); }
-    .hover\:bg-blue-700:hover { background-color: rgb(29, 78, 216); }
-    .bg-orange-600 { background-color: rgb(234, 88, 12); }
-    .hover\:bg-orange-700:hover { background-color: rgb(194, 65, 12); }
-    .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
-    .px-8 { padding-left: 2rem; padding-right: 2rem; }
-    .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
-    .text-xl { font-size: 1.25rem; }
-    .transition { transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
-    .gap-4 { gap: 1rem; }
-    .sm\:flex-row { flex-direction: row; }
-    @media (min-width: 640px) { .sm\:flex-row { flex-direction: row; } }
-
-    /* Inline CSS variables to prevent Tailwind issues */
     :root {
       --background: 210 33% 10%;
       --foreground: 210 40% 98%;
@@ -101,45 +31,46 @@
       --input: 210 33% 20%;
       --ring: 25 95% 53%;
       --radius: 0.5rem;
-    
-      /* Chart Colors */
-      --chart-1: 25 95% 53%;
-      --chart-2: 262 83% 58%;
-      --chart-3: 110 73% 49%;
-      --chart-4: 199 89% 48%;
-      --chart-5: 0 72% 51%;
-    
-      /* Sidebar Colors */
-      --sidebar-background: 210 33% 13%;
-      --sidebar-foreground: 210 40% 98%;
-      --sidebar-primary: 25 95% 53%;
-      --sidebar-primary-foreground: 210 40% 98%;
-      --sidebar-accent: 210 33% 20%;
-      --sidebar-accent-foreground: 210 40% 98%;
-      --sidebar-border: 210 33% 20%;
-      --sidebar-ring: 25 95% 53%;
     }
-
+    
+    /* Critical Tailwind-like utility classes for fallback */
+    .flex { display: flex; }
+    .flex-col { flex-direction: column; }
+    .items-center { align-items: center; }
+    .justify-center { justify-content: center; }
+    .w-full { width: 100%; }
+    .h-screen { height: 100vh; }
+    .p-4 { padding: 1rem; }
+    .bg-background { background-color: hsl(210, 33%, 10%); }
+    .text-foreground { color: hsl(210, 40%, 98%); }
+    .text-primary { color: hsl(25, 95%, 53%); }
+    .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+    .text-2xl { font-size: 1.5rem; line-height: 2rem; }
+    .text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
+    .font-bold { font-weight: 700; }
+    .text-center { text-align: center; }
+    .gap-4 { gap: 1rem; }
+    .max-w-4xl { max-width: 56rem; }
+    .mx-auto { margin-left: auto; margin-right: auto; }
+    .rounded-lg { border-radius: 0.5rem; }
+    .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+    .p-6 { padding: 1.5rem; }
+    .bg-secondary { background-color: hsl(210, 33%, 13%); }
+    .border { border-width: 1px; }
+    .border-border { border-color: hsl(210, 33%, 20%); }
+    .my-6 { margin-top: 1.5rem; margin-bottom: 1.5rem; }
+    
     body {
       margin: 0;
       padding: 0;
-      overflow: hidden;
-      width: 100vw;
-      height: 100vh;
-      background-color: hsl(var(--background));
-      color: hsl(var(--foreground));
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    }
-
-    #root {
-      width: 100%;
-      height: 100%;
-      position: fixed;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: hsl(210, 33%, 10%);
+      color: hsl(210, 40%, 98%);
     }
   </style>
 </head>
 <body>
   <div id="root"></div>
-  <script type="module" src="/src/main.tsx"></script>
+  <script type="module" src="./assets/index.js"></script>
 </body>
 </html>
