@@ -20,12 +20,37 @@ try {
   const clientPublicDir = path.join(__dirname, 'client/public');
   if (fs.existsSync(clientPublicDir)) {
     console.log('📦 Copying client public assets...');
+    
+    // Recursive function to copy files and directories
+    function copyRecursive(src, dest) {
+      // Check if source is a directory
+      const stat = fs.statSync(src);
+      if (stat.isDirectory()) {
+        // Create destination directory if it doesn't exist
+        if (!fs.existsSync(dest)) {
+          fs.mkdirSync(dest, { recursive: true });
+        }
+        
+        // Copy all files in the directory
+        const files = fs.readdirSync(src);
+        for (const file of files) {
+          const srcPath = path.join(src, file);
+          const destPath = path.join(dest, file);
+          copyRecursive(srcPath, destPath);
+        }
+      } else {
+        // It's a file, copy it directly
+        fs.copyFileSync(src, dest);
+      }
+    }
+    
+    // Get all files in the public directory
     const files = fs.readdirSync(clientPublicDir);
-    files.forEach(file => {
+    for (const file of files) {
       const srcPath = path.join(clientPublicDir, file);
       const destPath = path.join(distDir, file);
-      fs.copyFileSync(srcPath, destPath);
-    });
+      copyRecursive(srcPath, destPath);
+    }
   }
   
   // Create a minimal index.html to launch the game
