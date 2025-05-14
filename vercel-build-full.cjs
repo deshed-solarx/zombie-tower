@@ -40,6 +40,17 @@ try {
       copyDirRecursive(fontsDir, destFontsDir);
     }
     
+    // Create proper PostCSS and Tailwind configs for the build
+    const postcssConfig = `module.exports = {
+  plugins: {
+    tailwindcss: {
+      config: './client/tailwind.config.vercel.js'
+    },
+    autoprefixer: {}
+  }
+}`;
+    fs.writeFileSync(path.join(__dirname, 'postcss.config.js'), postcssConfig);
+    
     // Use Vite to build the client application
     execSync('cd client && npx vite build --outDir ../dist/public', { stdio: 'inherit' });
   } catch (buildError) {

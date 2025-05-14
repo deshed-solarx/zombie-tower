@@ -1,0 +1,85 @@
+[11:31:37.840] Running build in Washington, D.C., USA (East) – iad1
+[11:31:37.840] Build machine configuration: 2 cores, 8 GB
+[11:31:37.858] Cloning github.com/V01dNullified/Tower3 (Branch: main, Commit: 9454714)
+[11:31:38.261] Cloning completed: 403.000ms
+[11:31:40.470] Restored build cache from previous deployment (A3QHVvu9gMRFeS1Xnj2v3MY6obBW)
+[11:31:41.293] Running "vercel build"
+[11:31:41.695] Vercel CLI 41.7.3
+[11:31:42.498] Running "install" command: `npm install && npx prisma generate`...
+[11:31:45.264] 
+[11:31:45.265] added 1 package, and audited 613 packages in 3s
+[11:31:45.265] 
+[11:31:45.265] 84 packages are looking for funding
+[11:31:45.265]   run `npm fund` for details
+[11:31:45.305] 
+[11:31:45.306] 11 moderate severity vulnerabilities
+[11:31:45.306] 
+[11:31:45.306] To address issues that do not require attention, run:
+[11:31:45.306]   npm audit fix
+[11:31:45.306] 
+[11:31:45.306] To address all issues (including breaking changes), run:
+[11:31:45.307]   npm audit fix --force
+[11:31:45.307] 
+[11:31:45.307] Run `npm audit` for details.
+[11:31:46.831] npm warn exec The following package was not found and will be installed: prisma@6.7.0
+[11:31:56.579] Prisma schema loaded from prisma/schema.prisma
+[11:31:56.689] Warning: You did not specify an output path for your `generator` in schema.prisma. This behavior is deprecated and will no longer be supported in Prisma 7.0.0. To learn more visit https://pris.ly/cli/output-path
+[11:31:56.786] 
+[11:31:56.787] ✔ Generated Prisma Client (v6.7.0, engine=none) to ./node_modules/@prisma/client in 25ms
+[11:31:56.787] 
+[11:31:56.787] Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+[11:31:56.787] 
+[11:31:56.787] Tip: Want to turn off tips and other hints? https://pris.ly/tip-4-nohints
+[11:31:56.787] 
+[11:31:57.083] 🚀 Starting full project Vercel build...
+[11:31:57.083] 🔧 Creating build directories...
+[11:31:57.084] 📦 Generating Prisma client...
+[11:31:58.475] npm warn exec The following package was not found and will be installed: prisma@6.7.0
+[11:31:59.737] Prisma schema loaded from prisma/schema.prisma
+[11:31:59.832] Warning: You did not specify an output path for your `generator` in schema.prisma. This behavior is deprecated and will no longer be supported in Prisma 7.0.0. To learn more visit https://pris.ly/cli/output-path
+[11:31:59.923] 
+[11:31:59.924] ✔ Generated Prisma Client (v6.7.0, engine=none) to ./node_modules/@prisma/client in 26ms
+[11:31:59.924] 
+[11:31:59.924] Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+[11:31:59.924] 
+[11:31:59.924] Tip: Want real-time updates to your database without manual polling? Discover how with Pulse: https://pris.ly/tip-0-pulse
+[11:31:59.924] 
+[11:31:59.990] 🏗️ Building client application...
+[11:32:00.600] [36mvite v5.4.19 [32mbuilding for production...[36m[39m
+[11:32:00.601] [33m
+[11:32:00.601] [1m(!)[22m outDir [37m[2m/vercel/path0/dist/public[22m[33m is not inside project root and will not be emptied.
+[11:32:00.601] Use --emptyOutDir to override.
+[11:32:00.601] [39m
+[11:32:00.927] transforming...
+[11:32:01.188] 
+[11:32:01.188] [1m[33mwarn[39m[22m - The `content` option in your Tailwind CSS configuration is missing or empty.
+[11:32:01.189] [1m[33mwarn[39m[22m - Configure your content sources or your generated CSS will be missing styles.
+[11:32:01.189] [1m[33mwarn[39m[22m - https://tailwindcss.com/docs/content-configuration
+[11:32:02.376] [32m✓[39m 83 modules transformed.
+[11:32:02.904] Generated an empty chunk: "game".
+[11:32:03.020] rendering chunks...
+[11:32:03.139] [1m[33m[plugin:vite:reporter][39m[22m [33m[plugin vite:reporter] 
+[11:32:03.143] (!) /vercel/path0/node_modules/uuid/dist/esm-browser/index.js is dynamically imported by /vercel/path0/client/src/game/Game.ts but also statically imported by /vercel/path0/client/src/services/PlayerDataService.ts, dynamic import will not move module into another chunk.
+[11:32:03.146] [39m
+[11:32:03.147] [1m[33m[plugin:vite:reporter][39m[22m [33m[plugin vite:reporter] 
+[11:32:03.147] (!) /vercel/path0/client/src/services/PlayerDataService.ts is dynamically imported by /vercel/path0/client/src/game/Game.ts but also statically imported by /vercel/path0/client/src/App.tsx, /vercel/path0/client/src/components/PermanentUpgradesScreen.tsx, /vercel/path0/client/src/components/StartScreen.tsx, dynamic import will not move module into another chunk.
+[11:32:03.148] [39m
+[11:32:03.350] computing gzip size...
+[11:32:03.367] [2m../dist/public/[22m[32mindex.html                 [39m[1m[2m  0.88 kB[22m[1m[22m[2m │ gzip:  0.49 kB[22m
+[11:32:03.367] [2m../dist/public/[22m[2massets/[22m[35mindex-BjElw1Fo.css  [39m[1m[2m 10.07 kB[22m[1m[22m[2m │ gzip:  2.71 kB[22m
+[11:32:03.368] [2m../dist/public/[22m[2massets/[22m[36mgame-l0sNRNKZ.js    [39m[1m[2m  0.04 kB[22m[1m[22m[2m │ gzip:  0.06 kB[22m[2m │ map:   0.10 kB[22m
+[11:32:03.368] [2m../dist/public/[22m[2massets/[22m[36mindex-B3l1LYC2.js   [39m[1m[2m118.06 kB[22m[1m[22m[2m │ gzip: 33.66 kB[22m[2m │ map: 447.05 kB[22m
+[11:32:03.368] [2m../dist/public/[22m[2massets/[22m[36mvendor-G06n0fua.js  [39m[1m[2m141.48 kB[22m[1m[22m[2m │ gzip: 45.58 kB[22m[2m │ map: 347.63 kB[22m
+[11:32:03.368] [32m✓ built in 2.47s[39m
+[11:32:03.402] 🔌 Setting up API routes...
+[11:32:03.403] ✅ Build completed successfully!
+[11:32:03.436] Installing dependencies...
+[11:32:04.390] 
+[11:32:04.390] up to date in 884ms
+[11:32:04.391] 
+[11:32:04.391] 84 packages are looking for funding
+[11:32:04.391]   run `npm fund` for details
+[11:32:05.850] Build Completed in /vercel/output [23s]
+[11:32:05.900] Deploying outputs...
+[11:32:10.658] 
+[11:32:10.964] Deployment completed
