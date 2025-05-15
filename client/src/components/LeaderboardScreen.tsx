@@ -1,138 +1,127 @@
-import { useState, useEffect } from 'react';
-import { Button } from './ui/button';
-
-interface LeaderboardEntry {
-  id: string;
-  playerName: string;
-  score: number;
-  waveReached: number;
-  date: string | null;
-}
+import React, { useState, useEffect } from 'react';
+import { getLeaderboard, LeaderboardEntry } from '../services/LeaderboardService';
 
 interface LeaderboardScreenProps {
   onClose: () => void;
 }
 
-const LeaderboardScreen = ({ onClose }: LeaderboardScreenProps) => {
-  const [scores, setScores] = useState<LeaderboardEntry[]>([]);
+const LeaderboardScreen: React.FC<LeaderboardScreenProps> = ({ onClose }) => {
+  const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
+  
   useEffect(() => {
-    const fetchLeaderboard = async () => {
+    async function fetchLeaderboard() {
       try {
         setLoading(true);
-        const response = await fetch('/api/leaderboard');
-        const data = await response.json();
-        
-        if (data.success) {
-          setScores(data.scores);
-        } else {
-          setError(data.message || 'Failed to load leaderboard');
-        }
-      } catch (err) {
-        console.error('Error fetching leaderboard:', err);
-        setError('Failed to connect to the leaderboard service');
+        const data = await getLeaderboard();
+        setLeaderboard(data);
+      } catch (error) {
+        console.error('Failed to fetch leaderboard:', error);
+        setError('Failed to load leaderboard data. Please try again later.');
       } finally {
         setLoading(false);
       }
-    };
-
+    }
+    
     fetchLeaderboard();
   }, []);
-
-  // Format date to a readable string
-  const formatDate = (dateString: string | null) => {
+  
+  // Format date to be more readable
+  const formatDate = (dateString: string | null): string => {
     if (!dateString) return 'Unknown';
     
     try {
       const date = new Date(dateString);
-      return date.toLocaleDateString(undefined, { 
-        year: 'numeric', 
-        month: 'short', 
-        day: 'numeric' 
+      return date.toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
       });
-    } catch (e) {
-      return dateString;
+    } catch (error) {
+      return 'Invalid Date';
     }
   };
-
+  
   return (
-    <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black/80">
-      <div className="max-w-md w-full bg-black/90 rounded-lg p-8">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
+      <div className="bg-card p-6 rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold text-yellow-400">Leaderboard</h1>
-          <Button 
+          <h2 className="text-2xl font-bold text-primary">Global Leaderboard</h2>
+          <button 
             onClick={onClose}
-            className="bg-gray-700 hover:bg-gray-600 text-white p-2 rounded-full h-8 w-8 flex items-center justify-center"
+            className="text-muted-foreground hover:text-foreground"
           >
             ✕
-          </Button>
+          </button>
         </div>
-
+        
         {loading ? (
-          <div className="text-center py-8">
-            <div className="inline-block w-8 h-8 border-4 border-gray-400 border-t-yellow-400 rounded-full animate-spin"></div>
-            <p className="mt-4 text-gray-300">Loading high scores...</p>
+          <div className="flex flex-col items-center justify-center p-8">
+            <div className="w-12 h-12 border-4 border-t-primary rounded-full animate-spin mb-4"></div>
+            <p>Loading leaderboard...</p>
           </div>
         ) : error ? (
-          <div className="bg-red-900/50 p-4 rounded-lg text-center">
-            <p className="text-red-300">{error}</p>
-            <p className="text-sm text-gray-400 mt-2">
-              Notion integration may not be configured.
-            </p>
+          <div className="bg-destructive bg-opacity-20 text-destructive-foreground p-4 rounded text-center">
+            {error}
+          </div>
+        ) : leaderboard.length === 0 ? (
+          <div className="text-center p-8">
+            <p className="text-xl mb-4">No high scores yet!</p>
+            <p className="text-muted-foreground">Be the first to get on the leaderboard by playing the game.</p>
           </div>
         ) : (
-          <>
-            {scores.length === 0 ? (
-              <div className="text-center py-8">
-                <p className="text-gray-300">No high scores yet. Be the first!</p>
-              </div>
-            ) : (
-              <div className="overflow-hidden rounded-lg">
-                <table className="w-full">
-                  <thead className="bg-gray-800">
-                    <tr>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Rank</th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Player</th>
-                      <th className="px-4 py-3 text-right text-xs font-medium text-gray-300 uppercase tracking-wider">Score</th>
-                      <th className="px-4 py-3 text-right text-xs font-medium text-gray-300 uppercase tracking-wider">Wave</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-700">
-                    {scores.map((entry, index) => (
-                      <tr key={entry.id} className={index % 2 === 0 ? 'bg-gray-900' : 'bg-gray-800'}>
-                        <td className="px-4 py-3 whitespace-nowrap">
-                          <div className="flex items-center">
-                            <div className="text-sm font-medium text-gray-200">#{index + 1}</div>
-                          </div>
-                        </td>
-                        <td className="px-4 py-3 whitespace-nowrap">
-                          <div className="text-sm text-gray-200">{entry.playerName}</div>
-                          <div className="text-xs text-gray-400">{formatDate(entry.date)}</div>
-                        </td>
-                        <td className="px-4 py-3 whitespace-nowrap text-right">
-                          <div className="text-sm font-medium text-yellow-400">{entry.score.toLocaleString()}</div>
-                        </td>
-                        <td className="px-4 py-3 whitespace-nowrap text-right">
-                          <div className="text-sm text-green-400">{entry.waveReached}</div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="border-b border-border">
+                  <th className="text-left p-3">Rank</th>
+                  <th className="text-left p-3">Player</th>
+                  <th className="text-left p-3">Score</th>
+                  <th className="text-left p-3">Wave</th>
+                  <th className="text-left p-3">Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {leaderboard.map((entry, index) => (
+                  <tr 
+                    key={entry.id} 
+                    className={`border-b border-border ${index < 3 ? 'bg-muted bg-opacity-30' : ''}`}
+                  >
+                    <td className="p-3">
+                      <div className="flex items-center">
+                        {index === 0 && (
+                          <span className="text-yellow-500 mr-2">🏆</span>
+                        )}
+                        {index === 1 && (
+                          <span className="text-gray-400 mr-2">🥈</span>
+                        )}
+                        {index === 2 && (
+                          <span className="text-amber-700 mr-2">🥉</span>
+                        )}
+                        {index > 2 && (
+                          <span className="mr-2">{index + 1}</span>
+                        )}
+                      </div>
+                    </td>
+                    <td className="p-3 font-semibold">{entry.playerName}</td>
+                    <td className="p-3 text-primary font-bold">{entry.score.toLocaleString()}</td>
+                    <td className="p-3">{entry.waveReached}</td>
+                    <td className="p-3 text-muted-foreground">{formatDate(entry.date)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
-
-        <div className="mt-6 text-center">
-          <Button 
+        
+        <div className="mt-6 flex justify-center">
+          <button
             onClick={onClose}
-            className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-lg text-lg font-semibold transition"
+            className="px-6 py-2 bg-secondary text-secondary-foreground rounded font-semibold hover:bg-secondary/90"
           >
-            Back to Game
-          </Button>
+            Back to Menu
+          </button>
         </div>
       </div>
     </div>
