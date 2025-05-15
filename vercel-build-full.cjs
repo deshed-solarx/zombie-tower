@@ -46,7 +46,18 @@ try {
     
     if (fs.existsSync(indexVercelHtml)) {
       console.log('📋 Using custom Vercel index.html...');
+      
+      // Make a backup of the original index.html
+      if (fs.existsSync(indexHtml)) {
+        const indexHtmlBackup = path.join(__dirname, 'client/index.html.backup');
+        fs.copyFileSync(indexHtml, indexHtmlBackup);
+      }
+      
+      // Copy our custom Vercel index.html
       fs.copyFileSync(indexVercelHtml, indexHtml);
+      
+      // Also make a direct copy to the public directory as a fallback
+      fs.copyFileSync(indexVercelHtml, path.join(publicDir, 'index.html'));
     }
     
     // Create proper PostCSS and Tailwind configs for the build
@@ -73,11 +84,35 @@ try {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Zombie Tower Defense</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
   <style>
+    :root {
+      --background: 210 33% 10%;
+      --foreground: 210 40% 98%;
+      --card: 210 33% 13%;
+      --card-foreground: 210 40% 98%;
+      --popover: 210 33% 13%;
+      --popover-foreground: 210 40% 98%;
+      --primary: 25 95% 53%;
+      --primary-foreground: 210 40% 98%;
+      --secondary: 210 33% 13%;
+      --secondary-foreground: 210 40% 98%;
+      --muted: 210 33% 20%;
+      --muted-foreground: 210 20% 60%;
+      --accent: 210 33% 20%;
+      --accent-foreground: 210 40% 98%;
+      --destructive: 0 62% 50%;
+      --destructive-foreground: 210 40% 98%;
+      --border: 210 33% 20%;
+      --input: 210 33% 20%;
+      --ring: 25 95% 53%;
+      --radius: 0.5rem;
+    }
+    
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      background-color: #0f172a;
-      color: #f8fafc;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background-color: hsl(210, 33%, 10%);
+      color: hsl(210, 40%, 98%);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -90,15 +125,16 @@ try {
     }
     
     h1 {
-      color: #f97316;
+      color: hsl(25, 95%, 53%);
       font-size: 2.5rem;
       margin-bottom: 1rem;
     }
     
     h2 {
-      color: #f97316;
+      color: hsl(25, 95%, 53%);
       font-size: 1.5rem;
       margin-top: 2rem;
+      margin-bottom: 1rem;
     }
     
     p {
@@ -107,13 +143,14 @@ try {
     }
     
     .container {
-      background-color: #1e293b;
+      background-color: hsl(210, 33%, 13%);
       padding: 2rem;
-      border-radius: 8px;
+      border-radius: 0.5rem;
       box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
       margin-bottom: 2rem;
       max-width: 800px;
       width: 100%;
+      border: 1px solid hsl(210, 33%, 20%);
     }
     
     .feature-list {
@@ -127,16 +164,129 @@ try {
     
     .footer {
       margin-top: 2rem;
-      color: #94a3b8;
+      color: hsl(210, 20%, 60%);
       font-size: 0.875rem;
+    }
+    
+    .buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+    
+    .button {
+      background-color: hsl(25, 95%, 53%);
+      color: hsl(210, 40%, 98%);
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .button:hover {
+      background-color: hsl(25, 95%, 48%);
+    }
+    
+    .spinner {
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top: 3px solid hsl(25, 95%, 53%);
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 2rem auto;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .loading-message {
+      margin-top: 1rem;
+      font-style: italic;
+      color: hsl(210, 20%, 60%);
+    }
+    
+    .upgrade-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    .upgrade-card {
+      background-color: hsl(210, 33%, 16%);
+      border-radius: 0.5rem;
+      padding: 1.25rem;
+      border: 1px solid hsl(210, 33%, 25%);
+      text-align: left;
+    }
+    
+    .upgrade-title {
+      font-weight: 600;
+      color: hsl(25, 95%, 53%);
+      margin-bottom: 0.5rem;
+      font-size: 1.125rem;
+    }
+    
+    .upgrade-description {
+      font-size: 0.875rem;
+      color: hsl(210, 40%, 90%);
+      margin-bottom: 0.75rem;
+    }
+    
+    .upgrade-cost {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: hsl(25, 95%, 65%);
+    }
+    
+    .coin-icon {
+      color: gold;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Zombie Tower Defense</h1>
-    <p>Game Temporarily Unavailable</p>
-    <p>The game is currently experiencing technical issues. Our team is working to restore it as soon as possible.</p>
+    <p>Game is Loading...</p>
+    <div class="spinner"></div>
+    <p class="loading-message">Please wait while we prepare your zombie-slaying experience!</p>
+    <div class="buttons">
+      <button class="button" onclick="window.location.reload()">Reload Game</button>
+    </div>
+  </div>
+  
+  <div class="container">
+    <h2>Permanent Upgrades</h2>
+    <p>Spend your hard-earned coins on these powerful permanent upgrades to enhance your zombie defense capabilities!</p>
+    
+    <div class="upgrade-grid">
+      <div class="upgrade-card">
+        <div class="upgrade-title">Fire Rate</div>
+        <div class="upgrade-description">Increases the speed at which you can fire bullets.</div>
+        <div class="upgrade-cost"><span class="coin-icon">🪙</span> 50 coins per level</div>
+      </div>
+      
+      <div class="upgrade-card">
+        <div class="upgrade-title">Damage</div>
+        <div class="upgrade-description">Increases the damage dealt by each bullet.</div>
+        <div class="upgrade-cost"><span class="coin-icon">🪙</span> 50 coins per level</div>
+      </div>
+      
+      <div class="upgrade-card">
+        <div class="upgrade-title">Health</div>
+        <div class="upgrade-description">Increases your maximum health.</div>
+        <div class="upgrade-cost"><span class="coin-icon">🪙</span> 75 coins per level</div>
+      </div>
+    </div>
   </div>
   
   <div class="container">
@@ -146,6 +296,8 @@ try {
       <li>Collect coins to unlock permanent upgrades</li>
       <li>Compete on the global leaderboard</li>
       <li>Multiple gameplay modes and difficulty levels</li>
+      <li>Cross-platform gameplay with progress saving</li>
+      <li>Dynamic difficulty scaling based on player performance</li>
     </ul>
   </div>
   
