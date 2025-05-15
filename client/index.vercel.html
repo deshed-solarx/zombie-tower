@@ -7,8 +7,7 @@
   <meta name="description" content="2D tower defense game against zombies" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3343885780477563" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
-  <!-- Include built Tailwind CSS -->
-  <link rel="stylesheet" href="./assets/index.css" />
+  <!-- Vite will inject CSS during build -->
   <style>
     :root {
       --background: 210 33% 10%;
@@ -71,7 +70,6 @@
 </head>
 <body>
   <div id="root"></div>
-  <!-- This will be replaced with the correct script reference during build -->
-  <script type="module" src="/src/main.tsx"></script>
+  <!-- We'll let Vite inject the correct script reference during build -->
 </body>
 </html>

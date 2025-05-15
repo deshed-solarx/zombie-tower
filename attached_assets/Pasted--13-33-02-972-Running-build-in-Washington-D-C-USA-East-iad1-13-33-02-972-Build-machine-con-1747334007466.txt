@@ -1,0 +1,95 @@
+[13:33:02.972] Running build in Washington, D.C., USA (East) – iad1
+[13:33:02.972] Build machine configuration: 2 cores, 8 GB
+[13:33:02.988] Cloning github.com/V01dNullified/Tower3 (Branch: main, Commit: 4f93a11)
+[13:33:03.400] Cloning completed: 410.000ms
+[13:33:05.649] Restored build cache from previous deployment (BTPrfWYo4jfFKceRBVCtpWDAH3y6)
+[13:33:06.385] Running "vercel build"
+[13:33:06.762] Vercel CLI 41.7.3
+[13:33:07.486] Running "install" command: `npm install && npx prisma generate`...
+[13:33:10.066] 
+[13:33:10.067] up to date, audited 613 packages in 2s
+[13:33:10.067] 
+[13:33:10.067] 84 packages are looking for funding
+[13:33:10.068]   run `npm fund` for details
+[13:33:10.103] 
+[13:33:10.103] 11 moderate severity vulnerabilities
+[13:33:10.103] 
+[13:33:10.103] To address issues that do not require attention, run:
+[13:33:10.104]   npm audit fix
+[13:33:10.104] 
+[13:33:10.104] To address all issues (including breaking changes), run:
+[13:33:10.105]   npm audit fix --force
+[13:33:10.105] 
+[13:33:10.105] Run `npm audit` for details.
+[13:33:11.335] npm warn exec The following package was not found and will be installed: prisma@6.7.0
+[13:33:19.811] Prisma schema loaded from prisma/schema.prisma
+[13:33:19.922] Warning: You did not specify an output path for your `generator` in schema.prisma. This behavior is deprecated and will no longer be supported in Prisma 7.0.0. To learn more visit https://pris.ly/cli/output-path
+[13:33:20.016] 
+[13:33:20.017] ✔ Generated Prisma Client (v6.7.0, engine=none) to ./node_modules/@prisma/client in 25ms
+[13:33:20.017] 
+[13:33:20.017] Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+[13:33:20.017] 
+[13:33:20.018] Tip: Want real-time updates to your database without manual polling? Discover how with Pulse: https://pris.ly/tip-0-pulse
+[13:33:20.018] 
+[13:33:20.250] 🚀 Starting full project Vercel build...
+[13:33:20.253] 🔧 Creating build directories...
+[13:33:20.253] 📦 Generating Prisma client...
+[13:33:21.641] npm warn exec The following package was not found and will be installed: prisma@6.7.0
+[13:33:22.898] Prisma schema loaded from prisma/schema.prisma
+[13:33:23.000] Warning: You did not specify an output path for your `generator` in schema.prisma. This behavior is deprecated and will no longer be supported in Prisma 7.0.0. To learn more visit https://pris.ly/cli/output-path
+[13:33:23.094] 
+[13:33:23.094] ✔ Generated Prisma Client (v6.7.0, engine=none) to ./node_modules/@prisma/client in 26ms
+[13:33:23.095] 
+[13:33:23.095] Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+[13:33:23.095] 
+[13:33:23.095] Help us improve the Prisma ORM for everyone. Share your feedback in a short 2-min survey: https://pris.ly/orm/survey/release-5-22
+[13:33:23.095] 
+[13:33:23.153] 🏗️ Building client application...
+[13:33:23.157] 📋 Using custom Vercel index.html...
+[13:33:23.801] [36mvite v5.4.19 [32mbuilding for production...[36m[39m
+[13:33:24.136] 
+[13:33:24.136] ./assets/index.css doesn't exist at build time, it will remain unchanged to be resolved at runtime
+[13:33:24.139] transforming...
+[13:33:24.155] [32m✓[39m 2 modules transformed.
+[13:33:24.157] [31mx[39m Build failed in 52ms
+[13:33:24.158] [31merror during build:
+[13:33:24.158] [31mCould not resolve "./assets/index.js" from "index.html"[31m
+[13:33:24.158] file: [36m/vercel/path0/client/index.html[31m
+[13:33:24.159]     at getRollupError (file:///vercel/path0/client/node_modules/rollup/dist/es/shared/parseAst.js:397:41)
+[13:33:24.159]     at error (file:///vercel/path0/client/node_modules/rollup/dist/es/shared/parseAst.js:393:42)
+[13:33:24.159]     at ModuleLoader.handleInvalidResolvedId (file:///vercel/path0/client/node_modules/rollup/dist/es/shared/node-entry.js:21350:24)
+[13:33:24.159]     at file:///vercel/path0/client/node_modules/rollup/dist/es/shared/node-entry.js:21310:26[39m
+[13:33:24.177] ⚠️ Client build error: Error: Command failed: cd client && npx vite build --config vite.config.vercel.js
+[13:33:24.178]     at genericNodeError (node:internal/errors:983:15)
+[13:33:24.178]     at wrappedFn (node:internal/errors:537:14)
+[13:33:24.179]     at checkExecSyncError (node:child_process:882:11)
+[13:33:24.179]     at execSync (node:child_process:954:15)
+[13:33:24.179]     at Object.<anonymous> (/vercel/path0/vercel-build-full.cjs:64:5)
+[13:33:24.179]     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+[13:33:24.180]     at Object..js (node:internal/modules/cjs/loader:1895:10)
+[13:33:24.180]     at Module.load (node:internal/modules/cjs/loader:1465:32)
+[13:33:24.180]     at Function._load (node:internal/modules/cjs/loader:1282:12)
+[13:33:24.180]     at TracingChannel.traceSync (node:diagnostics_channel:322:14) {
+[13:33:24.180]   status: 1,
+[13:33:24.180]   signal: null,
+[13:33:24.181]   output: [ null, null, null ],
+[13:33:24.181]   pid: 192,
+[13:33:24.181]   stdout: null,
+[13:33:24.181]   stderr: null
+[13:33:24.181] }
+[13:33:24.182] ⚠️ Building simplified version as fallback...
+[13:33:24.182] 🔌 Setting up API routes...
+[13:33:24.182] ✅ Build completed successfully!
+[13:33:24.212] Installing dependencies...
+[13:33:25.142] 
+[13:33:25.142] up to date in 870ms
+[13:33:25.143] 
+[13:33:25.143] 84 packages are looking for funding
+[13:33:25.143]   run `npm fund` for details
+[13:33:25.990] Build Completed in /vercel/output [19s]
+[13:33:26.033] Deploying outputs...
+[13:33:32.378] 
+[13:33:33.059] Deployment completed
+[13:34:46.021] Uploading build cache [146.19 MB]...
+[13:34:48.331] Build cache uploaded: 2.310s
+[13:34:50.566] Exiting build container

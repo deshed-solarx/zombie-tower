@@ -31,35 +31,6 @@ try {
   console.log('🏗️ Building client application...');
   // Build the frontend application using Vite
   try {
-    // Copy essential files to client/public that need to be included in the build
-    const fontsDir = path.join(__dirname, 'client/public/fonts');
-    const destFontsDir = path.join(publicDir, 'fonts');
-    
-    if (fs.existsSync(fontsDir) && !fs.existsSync(destFontsDir)) {
-      fs.mkdirSync(destFontsDir, { recursive: true });
-      copyDirRecursive(fontsDir, destFontsDir);
-    }
-    
-    // Copy the index.vercel.html file to be used by Vite
-    const indexVercelHtml = path.join(__dirname, 'client/index.vercel.html');
-    const indexHtml = path.join(__dirname, 'client/index.html');
-    
-    if (fs.existsSync(indexVercelHtml)) {
-      console.log('📋 Using custom Vercel index.html...');
-      
-      // Make a backup of the original index.html
-      if (fs.existsSync(indexHtml)) {
-        const indexHtmlBackup = path.join(__dirname, 'client/index.html.backup');
-        fs.copyFileSync(indexHtml, indexHtmlBackup);
-      }
-      
-      // Copy our custom Vercel index.html
-      fs.copyFileSync(indexVercelHtml, indexHtml);
-      
-      // Also make a direct copy to the public directory as a fallback
-      fs.copyFileSync(indexVercelHtml, path.join(publicDir, 'index.html'));
-    }
-    
     // Create proper PostCSS and Tailwind configs for the build
     const postcssConfig = `module.exports = {
   plugins: {
@@ -71,7 +42,25 @@ try {
 }`;
     fs.writeFileSync(path.join(__dirname, 'postcss.config.js'), postcssConfig);
     
+    // Make sure the client/src/main.tsx file exists and has the right content
+    const mainTsxPath = path.join(__dirname, 'client/src/main.tsx');
+    
+    // Ensure dist/public directory exists for fallback option
+    if (!fs.existsSync(publicDir)) {
+      fs.mkdirSync(publicDir, { recursive: true });
+    }
+    
+    // Copy fonts directory if it exists
+    const fontsDir = path.join(__dirname, 'client/public/fonts');
+    const destFontsDir = path.join(publicDir, 'fonts');
+    
+    if (fs.existsSync(fontsDir) && !fs.existsSync(destFontsDir)) {
+      fs.mkdirSync(destFontsDir, { recursive: true });
+      copyDirRecursive(fontsDir, destFontsDir);
+    }
+    
     // Use Vite to build the client application with our Vercel config
+    console.log('📦 Building with Vite...');
     execSync('cd client && npx vite build --config vite.config.vercel.js', { stdio: 'inherit' });
   } catch (buildError) {
     console.error('⚠️ Client build error:', buildError);
