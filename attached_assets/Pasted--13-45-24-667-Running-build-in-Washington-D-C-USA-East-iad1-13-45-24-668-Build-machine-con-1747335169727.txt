@@ -1,0 +1,47 @@
+[13:45:24.667] Running build in Washington, D.C., USA (East) – iad1
+[13:45:24.668] Build machine configuration: 2 cores, 8 GB
+[13:45:24.684] Cloning github.com/V01dNullified/Tower3 (Branch: main, Commit: 23b263f)
+[13:45:25.104] Cloning completed: 420.000ms
+[13:45:26.870] Restored build cache from previous deployment (6ka8JUDmiEEzjYZ52cJDKsfoohcL)
+[13:45:27.654] Running "vercel build"
+[13:45:28.045] Vercel CLI 41.7.3
+[13:45:29.044] Running "install" command: `npm install && npx prisma generate`...
+[13:45:32.087] 
+[13:45:32.088] added 1 package, and audited 614 packages in 3s
+[13:45:32.089] 
+[13:45:32.089] 85 packages are looking for funding
+[13:45:32.089]   run `npm fund` for details
+[13:45:32.127] 
+[13:45:32.127] 11 moderate severity vulnerabilities
+[13:45:32.127] 
+[13:45:32.128] To address issues that do not require attention, run:
+[13:45:32.128]   npm audit fix
+[13:45:32.128] 
+[13:45:32.128] To address all issues (including breaking changes), run:
+[13:45:32.128]   npm audit fix --force
+[13:45:32.129] 
+[13:45:32.129] Run `npm audit` for details.
+[13:45:33.604] npm warn exec The following package was not found and will be installed: prisma@6.8.0
+[13:45:39.881] Prisma schema loaded from prisma/schema.prisma
+[13:45:40.106] 
+[13:45:40.107] ✔ Generated Prisma Client (v6.8.0, engine=none) to ./node_modules/@prisma/client in 29ms
+[13:45:40.107] 
+[13:45:40.108] Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+[13:45:40.108] 
+[13:45:40.108] Tip: Want to turn off tips and other hints? https://pris.ly/tip-4-nohints
+[13:45:40.108] 
+[13:45:40.446] file:///vercel/path0/vercel-simple-build.js:2
+[13:45:40.448] const { execSync } = require('child_process');
+[13:45:40.448]                      ^
+[13:45:40.448] 
+[13:45:40.448] ReferenceError: require is not defined in ES module scope, you can use import instead
+[13:45:40.449] This file is being treated as an ES module because it has a '.js' file extension and '/vercel/path0/package.json' contains "type": "module". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+[13:45:40.449]     at file:///vercel/path0/vercel-simple-build.js:2:22
+[13:45:40.449]     at ModuleJob.run (node:internal/modules/esm/module_job:274:25)
+[13:45:40.449]     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)
+[13:45:40.449]     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:116:5)
+[13:45:40.449] 
+[13:45:40.449] Node.js v22.15.0
+[13:45:40.453] Error: Command "node vercel-simple-build.js" exited with 1
+[13:45:40.828] 
+[13:45:43.835] Exiting build container

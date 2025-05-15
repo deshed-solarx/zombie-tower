@@ -3,7 +3,7 @@ const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
-console.log('🚀 Starting simplified Vercel build...');
+console.log('🚀 Starting simplified Vercel build... sdunvosnvljsdnvonfovnfbnodfinboifndboinfdobinodfibn');
 
 try {
   // Setup directories
