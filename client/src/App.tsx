@@ -30,9 +30,21 @@ const App: React.FC = () => {
           const displayName = data.displayName || `Player_${playerId.substring(0, 6)}`;
           setPlayerName(displayName);
           setTotalCoins(data.coins || 0);
+        } else {
+          // If we can't retrieve data from the API, use default values
+          console.log('Using default player data (API connection may be unavailable)');
+          const fallbackPlayerId = getOrCreatePlayerId();
+          const fallbackName = `Player_${fallbackPlayerId.substring(0, 6)}`;
+          setPlayerName(fallbackName);
+          setTotalCoins(0);
         }
       } catch (error) {
         console.error('Failed to load player data:', error);
+        // Still allow game to function with default values
+        const fallbackPlayerId = getOrCreatePlayerId();
+        const fallbackName = `Player_${fallbackPlayerId.substring(0, 6)}`;
+        setPlayerName(fallbackName);
+        setTotalCoins(0);
       }
     }
     

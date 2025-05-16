@@ -1,0 +1,35 @@
+Here's a prompt you can use for Replit Agent to diagnose potential issues causing an infinite loading state in your game:
+
+**Prompt for Replit Agent:**
+---
+"I am experiencing an issue where my game is stuck in an infinite loading state. The build and deployment appear to be successful, but the game does not progress past the loading screen. Based on my build logs, identify possible causes for this issue and suggest fixes for each one. Consider these factors:
+
+1. **Dependency Issues**: 
+   - **Potential problem**: Missing or incompatible dependencies.
+   - **Fix**: Ensure all dependencies are installed correctly by running `npm install`, `npm audit fix`, and checking package versions.
+
+2. **Database Connection Issues**:
+   - **Potential problem**: Prisma was installed (`prisma@6.8.2`), but there may be schema or connection issues.
+   - **Fix**: Verify database connectivity and ensure migrations are properly applied (`npx prisma migrate deploy`).
+
+3. **Frontend Build Issues**:
+   - **Potential problem**: Vite and Tailwind build process completed, but there may be unresolved rendering issues.
+   - **Fix**: Check for missing or malformed configuration files (`vite.config.js`, `tailwind.config.js`).
+
+4. **API Route Failures**:
+   - **Potential problem**: Backend routes may be misconfigured or returning errors.
+   - **Fix**: Review logs for API errors, test endpoints with `curl` or Postman, and ensure proper response handling.
+
+5. **Cache Issues**:
+   - **Potential problem**: Deployment cache may be holding onto outdated assets.
+   - **Fix**: Clear cache manually (`vercel cache purge`) and redeploy.
+
+6. **Network & Browser Restrictions**:
+   - **Potential problem**: Network policies or browser restrictions (e.g., DevTools disabled) might interfere with loading.
+   - **Fix**: Try testing in an unrestricted environment or a different device.
+
+Given the above factors, provide detailed diagnostics and potential solutions."
+
+---
+
+Try running this with Replit Agent, and let me know what insights you get! 🚀

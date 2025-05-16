@@ -6,8 +6,20 @@ import './styles/main.css';
 // Async function to check if Notion integration is set up
 async function checkNotionSetup() {
   try {
+    // Detect API URL based on environment
+    const isVercel = typeof window !== 'undefined' && 
+                    window.location.hostname.includes('vercel.app');
+    
+    const API_URL = import.meta.env.PROD 
+      ? isVercel ? '/api/leaderboard' : '/api/leaderboard'
+      : import.meta.env.DEV 
+        ? 'http://localhost:5000/api/leaderboard'
+        : '/api/leaderboard';
+        
+    console.log('Checking API connectivity with URL:', API_URL);
+    
     // Try to fetch data from the leaderboard API
-    const response = await fetch('/api/leaderboard');
+    const response = await fetch(API_URL);
     const data = await response.json();
     
     // Log the status for debugging
@@ -15,7 +27,8 @@ async function checkNotionSetup() {
     
     return data.success;
   } catch (error) {
-    console.error('Error checking Notion setup:', error);
+    console.error('Error checking API connectivity:', error);
+    // Don't fail the application startup due to API issues
     return false;
   }
 }

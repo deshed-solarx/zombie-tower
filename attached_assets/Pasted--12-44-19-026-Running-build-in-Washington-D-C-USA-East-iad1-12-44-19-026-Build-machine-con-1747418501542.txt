@@ -1,0 +1,61 @@
+[12:44:19.026] Running build in Washington, D.C., USA (East) – iad1
+[12:44:19.026] Build machine configuration: 2 cores, 8 GB
+[12:44:19.067] Cloning github.com/deshed-solarx/zombie-tower (Branch: main, Commit: 161dd2a)
+[12:44:19.643] Cloning completed: 575.000ms
+[12:44:21.436] Restored build cache from previous deployment (5P7CddSRka7bzewt1SdGar52rmKJ)
+[12:44:22.185] Running "vercel build"
+[12:44:22.564] Vercel CLI 41.7.3
+[12:44:23.270] Running "install" command: `npm install && npm rebuild && npx prisma generate`...
+[12:44:26.017] 
+[12:44:26.018] up to date, audited 614 packages in 2s
+[12:44:26.018] 
+[12:44:26.018] 85 packages are looking for funding
+[12:44:26.019]   run `npm fund` for details
+[12:44:26.052] 
+[12:44:26.052] 11 moderate severity vulnerabilities
+[12:44:26.053] 
+[12:44:26.053] To address issues that do not require attention, run:
+[12:44:26.053]   npm audit fix
+[12:44:26.053] 
+[12:44:26.054] To address all issues (including breaking changes), run:
+[12:44:26.054]   npm audit fix --force
+[12:44:26.054] 
+[12:44:26.054] Run `npm audit` for details.
+[12:44:27.150] rebuilt dependencies successfully
+[12:44:28.768] npm warn exec The following package was not found and will be installed: prisma@6.8.2
+[12:44:35.156] Prisma schema loaded from prisma/schema.prisma
+[12:44:35.363] 
+[12:44:35.363] ✔ Generated Prisma Client (v6.8.2, engine=none) to ./node_modules/@prisma/client in 27ms
+[12:44:35.363] 
+[12:44:35.363] Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+[12:44:35.363] 
+[12:44:35.364] Tip: Want to turn off tips and other hints? https://pris.ly/tip-4-nohints
+[12:44:35.364] 
+[12:44:38.055] 🚀 Starting simplified Vercel build...
+[12:44:38.056] 🔧 Creating Tailwind configuration...
+[12:44:38.056] 📦 Installing necessary dependencies...
+[12:44:38.056] 🎨 Building with Vite and Tailwind...
+[12:44:38.618] [36mvite v5.4.14 [32mbuilding for production...[36m[39m
+[12:44:38.937] transforming...
+[12:44:40.464] [32m✓[39m 31 modules transformed.
+[12:44:40.568] rendering chunks...
+[12:44:40.585] computing gzip size...
+[12:44:40.607] [2m../dist/public/[22m[32mindex.html                 [39m[1m[2m  0.52 kB[22m[1m[22m[2m │ gzip:  0.35 kB[22m
+[12:44:40.607] [2m../dist/public/[22m[2massets/[22m[35mindex-l0S6rcMa.css  [39m[1m[2m 56.10 kB[22m[1m[22m[2m │ gzip:  9.90 kB[22m
+[12:44:40.608] [2m../dist/public/[22m[2massets/[22m[36mindex-Dc5L2PIi.js   [39m[1m[2m143.59 kB[22m[1m[22m[2m │ gzip: 46.19 kB[22m
+[12:44:40.608] [32m✓ built in 1.70s[39m
+[12:44:40.658] 🔌 Setting up API routes...
+[12:44:40.658] ✅ Build process completed successfully!
+[12:44:40.694] Installing dependencies...
+[12:44:41.851] 
+[12:44:41.852] up to date in 1s
+[12:44:41.853] 
+[12:44:41.853] 85 packages are looking for funding
+[12:44:41.853]   run `npm fund` for details
+[12:44:42.662] Build Completed in /vercel/output [19s]
+[12:44:42.712] Deploying outputs...
+[12:44:47.399] 
+[12:44:47.698] Deployment completed
+[12:45:53.058] Uploading build cache [140.91 MB]...
+[12:45:55.054] Build cache uploaded: 1.995s
+[12:45:57.308] Exiting build container

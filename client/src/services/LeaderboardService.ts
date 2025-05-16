@@ -8,11 +8,17 @@ export interface LeaderboardEntry {
 }
 
 // Base API URL - automatically detects if we're in development or production
+// For Vercel deployment, API routes are at root level
+const isVercel = typeof window !== 'undefined' && 
+                window.location.hostname.includes('vercel.app');
+
 const API_BASE_URL = import.meta.env.PROD 
-  ? '/api' 
+  ? isVercel ? '/api' : '/api'
   : import.meta.env.DEV 
     ? 'http://localhost:5000/api'
     : '/api';
+
+console.log('Using API base URL:', API_BASE_URL);
 
 // Get top scores from the leaderboard
 export async function getLeaderboard(): Promise<LeaderboardEntry[]> {
